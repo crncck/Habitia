@@ -43,7 +43,7 @@ public class HabitsActivity extends AppCompatActivity {
     final public static List<Habit> habitsList = new ArrayList<>();
     TextView habitsText;
     String doneCheck;
-    static ImageView profileImage; //setting activityden değiştirebilmek  için static yaptım
+    static ImageView profileImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +64,7 @@ public class HabitsActivity extends AppCompatActivity {
         gridview.setAdapter(adapter);
 
 
-        //Gridview e tıklandığında içindeki bilgiler ile birlikte detail activity e geçecek.
+
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

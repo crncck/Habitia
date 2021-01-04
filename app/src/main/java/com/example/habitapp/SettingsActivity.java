@@ -107,7 +107,7 @@ public class SettingsActivity extends AppCompatActivity {
         }
     }
 
-    //resim iconuna tıklandığında galeriye gitmek için
+
     public void addProfileImage(View view){
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(this,new String[] {Manifest.permission.READ_EXTERNAL_STORAGE},1);
@@ -118,7 +118,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     }
 
-    //daha önce izin alınıp alınmadığını kontrol ediyor
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
@@ -132,7 +132,7 @@ public class SettingsActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
-    //Galeriden çekilen resmi iconun yerine yerleştiriyor
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
@@ -158,7 +158,7 @@ public class SettingsActivity extends AppCompatActivity {
         }
     }
 
-    //done butonuna tıklandığında habit aktivitydeki profil resmi(profileImage) değişmeli -yazmadım-
+
     public void doneButton (View view) {
 
         DocumentReference documentReference = firebaseFirestore.collection("users").document(userID);

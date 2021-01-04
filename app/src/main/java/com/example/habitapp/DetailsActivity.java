@@ -43,7 +43,7 @@ public class DetailsActivity extends AppCompatActivity {
         habitDescription = findViewById(R.id.habitDescription);
         checkBox = findViewById(R.id.checkBox);
 
-        //Gridviewdeki verileri detail activity içine aktarıyor
+
         Intent intent = getIntent();
         Habit SelectedHabit = (Habit) intent.getSerializableExtra("SelectedHabit");
 

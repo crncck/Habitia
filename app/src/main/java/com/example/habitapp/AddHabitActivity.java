@@ -70,7 +70,7 @@ public class AddHabitActivity extends AppCompatActivity {
 
     }
 
-    //add butonuna tıklandığında girilen isim,image ve description gridview e eklenecek.
+
     public void button( View view){
 
         habitName = addName.getText().toString();
@@ -104,7 +104,7 @@ public class AddHabitActivity extends AppCompatActivity {
                 }
             });
 
-            //habitsList.add(new Habit(habitName,habitImage,habitDescription)) ;
+
 
             Intent intent = new Intent(AddHabitActivity.this,HabitsActivity.class);
             startActivity(intent);
@@ -112,7 +112,7 @@ public class AddHabitActivity extends AppCompatActivity {
 
     }
 
-    //resim iconuna tıklandığında galeriye gitmek için
+
     public void addImage(View view) {
 
 
