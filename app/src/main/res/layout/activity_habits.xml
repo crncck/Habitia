@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_style"
     tools:context=".HabitsActivity">
+
 
     <GridView
         android:id="@+id/gridview"
-        android:layout_width="410dp"
-        android:layout_height="470dp"
+        android:layout_width="411dp"
+        android:layout_height="481dp"
         android:layout_marginVertical="10dp"
         android:layout_marginBottom="16dp"
         android:columnWidth="100dp"
@@ -30,10 +32,10 @@
         android:layout_height="49dp"
         android:layout_marginStart="30dp"
         android:layout_marginTop="30dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="5dp"
         android:text="HABITS"
         android:textAlignment="center"
-        android:textColor="#673AB7"
+        android:textColor="@color/white"
         android:textSize="36sp"
         app:layout_constraintBottom_toTopOf="@+id/gridview"
         app:layout_constraintEnd_toEndOf="parent"
@@ -50,6 +52,8 @@
         app:layout_constraintEnd_toStartOf="@+id/habitsText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/habitsText"
-        app:shapeAppearanceOverlay="@style/Circular" />
+        app:shapeAppearanceOverlay="@style/Circular"
+        app:strokeColor="@color/background_color"
+        app:strokeWidth="2dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

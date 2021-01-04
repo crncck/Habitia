@@ -8,13 +8,17 @@
     <com.github.siyamed.shapeimageview.CircularImageView
         android:id="@+id/customimageview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="@drawable/circle"
+        />
 
     <TextView
         android:id="@+id/customtextview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
 
 </LinearLayout>

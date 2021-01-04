@@ -1,7 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-<item android:id="@+id/add_habit" android:title="New Habit" ></item>
-    <item android:id="@+id/settings" android:title = "Settings"></item>
-    <item android:id="@+id/sign_out" android:title="Sign Out" ></item>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
 
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+tools:context=".HabitsActivity">
+    <item
+        android:title=" "
+        android:icon="@mipmap/menu_icon_foreground"
+        android:orderInCategory="10"
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/add_habit"
+                android:icon="@mipmap/add_foreground"
+                android:title="New Habit" />
+            <item
+                android:id="@+id/settings"
+                android:title = "Settings"
+                android:icon="@mipmap/settings_icon_foreground" />
+            <item
+                android:id="@+id/sign_out"
+                android:title="Sign Out"
+                android:icon="@mipmap/sign_out_icon_foreground"/>
+        </menu>
+    </item>
 </menu>

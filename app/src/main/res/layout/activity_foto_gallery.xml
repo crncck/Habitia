@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_style"
     tools:context=".FotoGalleryActivity">
 
     <GridView
@@ -32,7 +33,7 @@
         android:layout_marginBottom="30dp"
         android:text="GALLERY"
         android:textAlignment="center"
-        android:textColor="#9C27B0"
+        android:textColor="@color/white"
         android:textSize="36sp"
         app:layout_constraintBottom_toTopOf="@+id/gridview"
         app:layout_constraintEnd_toEndOf="parent"

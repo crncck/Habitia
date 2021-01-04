@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_style"
     tools:context=".SettingsActivity">
 
     <TextView
@@ -13,7 +14,7 @@
         android:layout_marginTop="44dp"
         android:text="PROFILE SETTINGS"
         android:textAlignment="center"
-        android:textColor="#9C27B0"
+        android:textColor="@color/white"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,8 +24,11 @@
         android:id="@+id/settingsNameText"
         android:layout_width="88dp"
         android:layout_height="26dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="5dp"
         android:text="Name:"
         android:textAlignment="textEnd"
+        android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/userNameEditText"
         app:layout_constraintEnd_toStartOf="@+id/userNameEditText"
@@ -35,16 +39,18 @@
         android:id="@+id/settingsSurnameText"
         android:layout_width="88dp"
         android:layout_height="25dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="40dp"
         android:text="Surname:"
         android:textAlignment="textEnd"
+        android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/userSurnameEditText"
         app:layout_constraintEnd_toStartOf="@+id/userSurnameEditText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/settingsNameText" />
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/addProfileImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -53,7 +59,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/settingsText"
-        app:srcCompat="@drawable/add_image_icon" />
+        app:shapeAppearanceOverlay="@style/Circular"
+        app:srcCompat="@drawable/add_image_icon"
+        app:strokeColor="@color/background_color"
+        app:strokeWidth="2dp" />
+
 
     <Button
         android:id="@+id/doneButton"
@@ -72,8 +82,10 @@
         android:layout_height="0dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="60dp"
+        android:backgroundTint="@color/white"
         android:ems="10"
         android:inputType="textPersonName"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addProfileImage" />
 
@@ -84,8 +96,10 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="60dp"
         android:layout_marginBottom="30dp"
+        android:backgroundTint="@color/white"
         android:ems="10"
         android:inputType="textPersonName"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/doneButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userNameEditText" />

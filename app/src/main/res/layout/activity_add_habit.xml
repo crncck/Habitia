@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_style"
     tools:context=".AddHabitActivity">
 
     <Button
@@ -23,10 +24,13 @@
         android:id="@+id/addName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
         android:ems="10"
         android:hint="Habit Name"
         android:inputType="textPersonName"
         android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textColorHint="?attr/colorButtonNormal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -36,8 +40,10 @@
 
     <ImageView
         android:id="@+id/addImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="175dp"
+        android:layout_height="170dp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/circle"
         android:onClick="addImage"
         app:layout_constraintBottom_toTopOf="@+id/addName"
         app:layout_constraintEnd_toEndOf="parent"
@@ -45,16 +51,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.592"
-        app:srcCompat="@drawable/add_image_icon" />
+        app:srcCompat="@mipmap/add_habit_icon_foreground" />
 
     <EditText
         android:id="@+id/addDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
         android:ems="10"
         android:hint="Habit Description"
         android:inputType="textPersonName"
         android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textColorHint="?attr/colorButtonNormal"
         app:layout_constraintBottom_toTopOf="@+id/addButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -66,10 +75,12 @@
         android:id="@+id/addHabitText"
         android:layout_width="241dp"
         android:layout_height="72dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="20dp"
         android:gravity="center"
         android:text="ADD HABIT"
         android:textAlignment="center"
-        android:textColor="#9C27B0"
+        android:textColor="@color/white"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/addImage"
         app:layout_constraintEnd_toEndOf="parent"

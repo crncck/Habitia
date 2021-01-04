@@ -48,7 +48,7 @@
             android:backgroundTint="@color/gray"
             android:hint="Enter your e-mail address"
             android:inputType="textEmailAddress"
-            android:textColor="@color/gray"
+            android:textColor="@color/white"
             android:textColorHint="@color/gray" />
 
         <EditText
@@ -59,7 +59,7 @@
             android:backgroundTint="@color/gray"
             android:hint="Enter your password"
             android:inputType="textPassword"
-            android:textColor="@color/gray"
+            android:textColor="@color/white"
             android:textColorHint="@color/gray" />
 
         <androidx.appcompat.widget.AppCompatButton
