@@ -42,32 +42,35 @@ public class SignUpActivity extends AppCompatActivity {
         String email = emailText.getText().toString();
         String password = passwordText.getText().toString();
 
-        if (email.matches("")) {
-            // Email address is empty
+        if (password.isEmpty() && email.isEmpty()) {
+            Toast.makeText(SignUpActivity.this, "Please enter your information", Toast.LENGTH_LONG).show();
+        } else if (password.isEmpty()) {
+            Toast.makeText(SignUpActivity.this, "Please enter a password", Toast.LENGTH_LONG).show();
+        } else if (email.isEmpty()) {
             Toast.makeText(SignUpActivity.this, "Invalid email address.", Toast.LENGTH_LONG).show();
+        } else {
+
+            firebaseAuth.createUserWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                @Override
+                public void onSuccess(AuthResult authResult) {
+
+                    Toast.makeText(SignUpActivity.this, "User Created", Toast.LENGTH_LONG);
+
+                    Intent intent = new Intent(SignUpActivity.this, HabitsActivity.class);
+                    startActivity(intent);
+                    finish();
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+
+                    Toast.makeText(SignUpActivity.this, e.getLocalizedMessage().toString(), Toast.LENGTH_LONG).show();
+
+                }
+            });
+
         }
-
-        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-            @Override
-            public void onSuccess(AuthResult authResult) {
-
-                Toast.makeText(SignUpActivity.this, "User Created", Toast.LENGTH_LONG);
-
-                Intent intent = new Intent(SignUpActivity.this, HabitsActivity.class);
-                startActivity(intent);
-                finish();
-
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-
-                Toast.makeText(SignUpActivity.this, e.getLocalizedMessage().toString(), Toast.LENGTH_LONG).show();
-
-            }
-        });
-
-
     }
 
 

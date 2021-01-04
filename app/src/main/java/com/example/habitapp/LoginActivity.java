@@ -54,12 +54,12 @@ public class LoginActivity extends AppCompatActivity {
         email = emailText.getText().toString();
         password = passwordText.getText().toString();
 
-        if (email == "") {
-            Toast.makeText(LoginActivity.this, "Please enter your e-mail", Toast.LENGTH_LONG).show();
-        } else if (password == "") {
-            Toast.makeText(LoginActivity.this, "Please enter your password", Toast.LENGTH_LONG).show();
-        } else if (password == "" || email == "") {
+        if (password.isEmpty() && email.isEmpty()) {
             Toast.makeText(LoginActivity.this, "Please enter your information", Toast.LENGTH_LONG).show();
+        } else if (password.isEmpty()) {
+            Toast.makeText(LoginActivity.this, "Please enter your password", Toast.LENGTH_LONG).show();
+        } else if (email.isEmpty()) {
+            Toast.makeText(LoginActivity.this, "Please enter your e-mail", Toast.LENGTH_LONG).show();
         } else {
             firebaseAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                 @Override
