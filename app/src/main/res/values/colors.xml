@@ -11,7 +11,8 @@
     <color name="colorAccent">#03DAC5</color>
     <color name="pink">#C638A6</color>
     <color name="blue">#3C4FCD</color>
-    <color name="background_color">#21254A</color>
+    <color name="background_color">#FFFFFF</color>
     <color name="white">#ffffff</color>
     <color name="gray">#767C93</color>
+    <color name="title_color">#673AB7</color>
 </resources>

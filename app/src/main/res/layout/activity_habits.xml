@@ -33,7 +33,7 @@
         android:layout_marginBottom="10dp"
         android:text="HABITS"
         android:textAlignment="center"
-        android:textColor="#673AB7"
+        android:textColor="@color/title_color"
         android:textSize="36sp"
         app:layout_constraintBottom_toTopOf="@+id/gridview"
         app:layout_constraintEnd_toEndOf="parent"
