@@ -30,7 +30,7 @@
         android:id="@+id/habitsText"
         android:layout_width="178dp"
         android:layout_height="49dp"
-        android:layout_marginStart="30dp"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="30dp"
         android:layout_marginBottom="5dp"
         android:text="HABITS"
@@ -47,13 +47,13 @@
         android:id="@+id/profileImage"
         android:layout_width="62dp"
         android:layout_height="62dp"
-        android:layout_marginStart="30dp"
+        android:layout_marginStart="50dp"
         app:layout_constraintBottom_toBottomOf="@+id/habitsText"
         app:layout_constraintEnd_toStartOf="@+id/habitsText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/habitsText"
         app:shapeAppearanceOverlay="@style/Circular"
         app:strokeColor="@color/background_color"
-        app:strokeWidth="2dp"/>
+        app:strokeWidth="2dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -57,6 +57,7 @@ public class HabitsActivity extends AppCompatActivity {
         gridview = findViewById(R.id.gridview);
         habitsText = findViewById(R.id.habitsText);
         profileImage = findViewById(R.id.profileImage);
+        profileImage.setVisibility(View.INVISIBLE);
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
@@ -141,6 +142,7 @@ public class HabitsActivity extends AppCompatActivity {
                             String downloadUrl = (String) data.get("profile_image");
 
                             if (downloadUrl != null) {
+                                profileImage.setVisibility(View.VISIBLE);
                                 Picasso.get().load(downloadUrl).into(profileImage);
                             }
                         }
