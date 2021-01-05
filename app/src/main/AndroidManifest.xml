@@ -13,19 +13,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HabitApp">
         <activity android:name=".SignUpActivity"
-            android:screenOrientation="sensor"></activity>
+            android:screenOrientation="fullSensor"></activity>
         <activity android:name=".FotoGalleryActivity"
-            android:screenOrientation="sensor"/>
+            android:screenOrientation="fullSensor"/>
         <activity android:name=".SettingsActivity"
-            android:screenOrientation="sensor"/>
+            android:screenOrientation="fullSensor"/>
         <activity android:name=".DetailsActivity"
-            android:screenOrientation="sensor"/>
+            android:screenOrientation="fullSensor"/>
         <activity android:name=".AddHabitActivity"
-            android:screenOrientation="sensor"/>
+            android:screenOrientation="fullSensor"/>
         <activity android:name=".HabitsActivity"
-            android:screenOrientation="sensor"/>
+            android:screenOrientation="fullSensor"/>
         <activity android:name=".LoginActivity"
-            android:screenOrientation="sensor">
+            android:screenOrientation="fullSensor">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
