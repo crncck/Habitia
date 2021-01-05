@@ -3,6 +3,7 @@ package com.example.habitapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -70,17 +71,22 @@ public class AddHabitActivity extends AppCompatActivity {
     }
 
 
-    public void button( View view){
+    @SuppressLint("ResourceAsColor")
+    public void addHabit(View view){
 
         habitName = addName.getText().toString();
         habitDescription = addDescription.getText().toString();
 
-        if (habitName == null) {
-            Toast.makeText(AddHabitActivity.this, "Please add name of the habit", Toast.LENGTH_LONG).show();
-        } else if (habitDescription == null) {
-            Toast.makeText(AddHabitActivity.this, "Please add description", Toast.LENGTH_LONG).show();
-        } else if (bool == false) {
+        if (bool == false) {
             Toast.makeText(AddHabitActivity.this, "Please select an icon", Toast.LENGTH_LONG).show();
+        } else if (habitName.isEmpty()) {
+            addName.setError("Add name of the habit");
+            addName.setBackgroundResource(R.drawable.error_style);
+            addName.setTextColor(R.color.black);
+        } else if (habitDescription.isEmpty()) {
+            addDescription.setError("Add description of the habit");
+            addDescription.setBackgroundResource(R.drawable.error_style);
+            addDescription.setTextColor(R.color.black);
         } else {
             habitImage = String.valueOf(SelectedFoto.getPicId());
             DocumentReference documentReference = firebaseFirestore.collection("users").document(userID);
