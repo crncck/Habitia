@@ -38,15 +38,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static com.example.habitapp.HabitsActivity.habitsList;
-
 public class HabitsActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firebaseFirestore;
     private String userID;
     GridView gridview;
-    final public static List<Habit> habitsList = new ArrayList<>();
+    final public List<Habit> habitsList = new ArrayList<>();
     TextView habitsText;
     String doneCheck;
     static ImageView profileImage;

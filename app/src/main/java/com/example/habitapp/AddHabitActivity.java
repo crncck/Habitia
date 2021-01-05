@@ -22,7 +22,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.example.habitapp.HabitsActivity.habitsList;
 
 public class AddHabitActivity extends AppCompatActivity {
 
