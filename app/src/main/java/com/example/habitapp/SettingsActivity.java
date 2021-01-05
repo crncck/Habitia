@@ -100,7 +100,7 @@ public class SettingsActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.remove_picture:
                 downloadUrl = null;
-                addProfileImage.setImageResource(R.drawable.add_image_icon);
+                addProfileImage.setImageResource(R.mipmap.add_habit_icon_foreground);
                 return true;
             default:
                 return super.onContextItemSelected(item);
@@ -256,8 +256,7 @@ public class SettingsActivity extends AppCompatActivity {
 
                             // If user does not add profile image show template image
                             if (downloadUrl == null) {
-                                addProfileImage.setImageResource(R.drawable.add_image_icon);
-                            } else {
+                                addProfileImage.setImageResource(R.mipmap.add_habit_icon_foreground);                            } else {
                                 Picasso.get().load(downloadUrl).into(addProfileImage);
                                 Picasso.get().load(downloadUrl).into(HabitsActivity.profileImage);
 

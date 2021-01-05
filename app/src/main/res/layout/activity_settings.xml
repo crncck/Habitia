@@ -52,15 +52,15 @@
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/addProfileImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="130dp"
+        android:layout_height="124dp"
         android:layout_marginTop="20dp"
         android:onClick="addProfileImage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/settingsText"
         app:shapeAppearanceOverlay="@style/Circular"
-        app:srcCompat="@drawable/add_image_icon"
+        app:srcCompat="@mipmap/add_habit_icon_foreground"
         app:strokeColor="@color/background_color"
         app:strokeWidth="2dp" />
 
