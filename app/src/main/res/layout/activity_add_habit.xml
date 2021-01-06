@@ -70,9 +70,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:onClick="addHabit"
             android:layout_marginTop="25dp"
-            android:text="Add" />
+            android:onClick="addHabit"
+            android:text="@string/add" />
     </LinearLayout>
 
     <TextView
@@ -81,7 +81,7 @@
         android:layout_height="72dp"
         android:layout_marginTop="24dp"
         android:gravity="center"
-        android:text="ADD HABIT"
+        android:text="@string/add_habit"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="30sp"

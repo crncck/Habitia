@@ -23,7 +23,7 @@
         android:layout_marginBottom="16dp"
         android:background="@color/background_color"
         android:shadowColor="@color/purple_500"
-        android:text="Done"
+        android:text="@string/done"
         android:textColor="#99949A"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
