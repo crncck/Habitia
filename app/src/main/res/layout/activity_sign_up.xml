@@ -91,13 +91,12 @@
             android:textColorHint="@color/gray" />
 
 
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="25dp"
-            android:text="By creating an account, you agree to the \nTerms and Use and Privacy Policy"
+            android:text="@string/privacy"
             android:textAlignment="center"
             android:textColor="@color/gray"
             android:textSize="16sp" />
@@ -111,7 +110,7 @@
             android:background="@drawable/button_style"
             android:onClick="signUpClicked"
             android:padding="10dp"
-            android:text="Sign Up"
+            android:text="@string/sign_up"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="22sp" />
@@ -133,7 +132,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Already have an account?"
+            android:text="@string/sign_up1"
             android:textColor="@color/gray"
             android:textSize="16sp" />
 
@@ -143,7 +142,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:onClick="toLogin"
-            android:text="Login"
+            android:text="@string/login"
             android:textColor="@color/gray"
             android:textSize="18sp" />
 

@@ -1,3 +1,17 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">HABITIA</string>
+    <string name="add_habit">ADD HABIT</string>
+    <string name="add">ADD</string>
+    <string name="done">Done</string>
+    <string name="gallery">GALLERY</string>
+    <string name="habits">HABITS</string>
+    <string name="login">Login</string>
+    <string name="login_text1">Don\'t have an account?</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="sign_in">Sign In</string>
+    <string name="settings">PROFILE SETTINGS</string>
+    <string name="name">Name</string>
+    <string name="Surname">Surname</string>
+    <string name="privacy">By creating an account, you agree to the<br/>Terms and Use and Privacy Policy</string>
+    <string name="sign_up1">Already have an account?</string>
 </resources>

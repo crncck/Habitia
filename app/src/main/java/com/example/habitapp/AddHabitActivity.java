@@ -95,9 +95,9 @@ public class AddHabitActivity extends AppCompatActivity {
 
     private void initList() {
         mTypeList = new ArrayList<>();
-        mTypeList.add(new TypeItem("m", R.mipmap.meter_icon_foreground));
-        mTypeList.add(new TypeItem("steps", R.mipmap.steps_icon_foreground));
         mTypeList.add(new TypeItem("count", R.mipmap.count_icon_foreground));
+        mTypeList.add(new TypeItem("steps", R.mipmap.steps_icon_foreground));
+        mTypeList.add(new TypeItem("m", R.mipmap.meter_icon_foreground));
         mTypeList.add(new TypeItem("sec", R.mipmap.second_icon_foreground));
         mTypeList.add(new TypeItem("min", R.mipmap.minute_icon_foreground));
         mTypeList.add(new TypeItem("hr", R.mipmap.hour_icon_foreground));
