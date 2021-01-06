@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
+import com.github.siyamed.shapeimageview.CircularImageView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -47,7 +48,7 @@ public class HabitsActivity extends AppCompatActivity {
     final public List<Habit> habitsList = new ArrayList<>();
     TextView habitsText;
     String doneCheck;
-    static ImageView profileImage;
+    static CircularImageView profileImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

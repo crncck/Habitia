@@ -45,16 +45,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.284" />
 
-    <com.google.android.material.imageview.ShapeableImageView
+    <com.github.siyamed.shapeimageview.CircularImageView
         android:id="@+id/profileImage"
         android:layout_width="62dp"
         android:layout_height="62dp"
         android:layout_marginStart="30dp"
+        app:siBorderWidth="2dp"
+        app:siBorderColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/habitsText"
         app:layout_constraintEnd_toStartOf="@+id/habitsText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/habitsText"
-        app:shapeAppearanceOverlay="@style/Circular"
         app:strokeColor="@color/background_color"
         app:strokeWidth="2dp"/>
 

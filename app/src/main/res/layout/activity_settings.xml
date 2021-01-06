@@ -50,7 +50,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/settingsNameText" />
 
-    <com.google.android.material.imageview.ShapeableImageView
+    <com.github.siyamed.shapeimageview.CircularImageView
         android:id="@+id/addProfileImage"
         android:layout_width="130dp"
         android:layout_height="124dp"
@@ -59,7 +59,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/settingsText"
-        app:shapeAppearanceOverlay="@style/Circular"
+        app:siBorderWidth="2dp"
+        app:siBorderColor="@color/white"
+        android:background="@drawable/circle"
         app:srcCompat="@mipmap/add_habit_icon_foreground"
         app:strokeColor="@color/background_color"
         app:strokeWidth="2dp" />
