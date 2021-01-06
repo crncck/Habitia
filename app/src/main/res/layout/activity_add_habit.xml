@@ -71,6 +71,18 @@
         app:layout_constraintTop_toBottomOf="@+id/addName"
         app:layout_constraintVertical_bias="0.25" />
 
+    <Spinner
+        android:id="@+id/typeSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/spinner_box_style"
+        app:layout_constraintBottom_toTopOf="@+id/addButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addDescription" />
+
     <TextView
         android:id="@+id/addHabitText"
         android:layout_width="241dp"

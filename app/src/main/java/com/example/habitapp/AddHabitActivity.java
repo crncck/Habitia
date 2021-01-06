@@ -7,9 +7,11 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +22,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,6 +47,9 @@ public class AddHabitActivity extends AppCompatActivity {
     private FirebaseAuth fAuth;
     private String userID;
 
+    private ArrayList<TypeItem> mTypeList;
+    private ItemAdapter mAdapter;
+
 
 
     @Override
@@ -67,6 +73,36 @@ public class AddHabitActivity extends AppCompatActivity {
         if (bool == true) {
             addImage.setImageResource(SelectedFoto.getPicId());
         }
+
+        initList();
+
+        Spinner spinnerTypes = findViewById(R.id.typeSpinner);
+        mAdapter = new ItemAdapter(this, mTypeList);
+        spinnerTypes.setAdapter(mAdapter);
+        spinnerTypes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                TypeItem clickedItem = (TypeItem) parent.getItemAtPosition(position);
+                String clickedType = clickedItem.getTypeName();
+                Toast.makeText(AddHabitActivity.this, clickedType + " selected", Toast.LENGTH_LONG).show();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+    }
+
+    private void initList() {
+        mTypeList = new ArrayList<>();
+        mTypeList.add(new TypeItem("m", R.mipmap.meter_icon_foreground));
+        mTypeList.add(new TypeItem("steps", R.mipmap.steps_icon_foreground));
+        mTypeList.add(new TypeItem("count", R.mipmap.count_icon_foreground));
+        mTypeList.add(new TypeItem("sec", R.mipmap.second_icon_foreground));
+        mTypeList.add(new TypeItem("min", R.mipmap.minute_icon_foreground));
+        mTypeList.add(new TypeItem("hr", R.mipmap.hour_icon_foreground));
+        mTypeList.add(new TypeItem("Cal", R.mipmap.calorie_icon_foreground));
+
 
     }
 
