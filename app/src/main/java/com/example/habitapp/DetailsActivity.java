@@ -9,11 +9,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -33,12 +35,10 @@ import nl.dionsegijn.konfetti.models.Size;
 
 public class DetailsActivity extends AppCompatActivity {
 
+    Habit habit;
     ImageView habitImage;
-    TextView habitName;
-    TextView habitDescription;
-    Button checkBox;
-    String doneCheck = "false";
-
+    TextView habitName, habitDescription;
+    CheckBox checkBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,12 +52,12 @@ public class DetailsActivity extends AppCompatActivity {
         final KonfettiView konfettiView = findViewById(R.id.konfettiView);
 
         Intent intent = getIntent();
-        Habit SelectedHabit = (Habit) intent.getSerializableExtra("SelectedHabit");
+        this.habit = (Habit) intent.getSerializableExtra("SelectedHabit");
 
-        habitName.setText(SelectedHabit.getName());
-        habitImage.setImageResource(Integer.parseInt(SelectedHabit.getPicId()));
-        habitDescription.setText(SelectedHabit.getDescription());
-
+        habitName.setText(habit.getName());
+        habitImage.setImageResource(Integer.parseInt(habit.getPicId()));
+        habitDescription.setText(habit.getDescription());
+        checkBox.setChecked(habit.isDone());
 
         checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,28 +75,19 @@ public class DetailsActivity extends AppCompatActivity {
                         .setPosition(-50f, konfettiView.getWidth() + 50f, -50f, -50f)
                         .streamFor(300, 5000L);
 
-
-                doneCheck = "true";
                 Toast.makeText(DetailsActivity.this,"Congratulations!",Toast.LENGTH_SHORT).show();
+
+                FirebaseUser activeUser = FirebaseAuth.getInstance().getCurrentUser();
+                FirebaseFirestore.getInstance().collection("users").document(activeUser.getUid()).collection("habits").document(habit.getId()).update("done", "true");
 
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         Intent intent = new Intent(DetailsActivity.this, HabitsActivity.class);
-                        intent.putExtra("doneCheck", doneCheck);
                         startActivity(intent);
                     }
                 }, 3000);
-
             }
         });
-
-
     }
-
-
-
-
-
-
 }

@@ -47,7 +47,6 @@ public class HabitsActivity extends AppCompatActivity {
     GridView gridview;
     final public List<Habit> habitsList = new ArrayList<>();
     TextView habitsText;
-    String doneCheck;
     static CircularImageView profileImage;
 
     @Override
@@ -81,11 +80,6 @@ public class HabitsActivity extends AppCompatActivity {
 
             }
         });
-
-        Intent intent = getIntent();
-        doneCheck = (String) intent.getSerializableExtra("doneCheck");
-        System.out.println("check"+doneCheck);
-
     }
 
     @Override
@@ -175,18 +169,15 @@ public class HabitsActivity extends AppCompatActivity {
                         String description = (String) data.get("description");
                         String image_id = (String) data.get("image_id");
                         String done = (String) data.get("done");
+                        String habitId = snapshot.getId();
 
-                        habitsList.add(new Habit(name, image_id, description, done));
+                        habitsList.add(new Habit(habitId, name, image_id, description, done));
 
                         HabitsAdapter adapter = new HabitsAdapter(HabitsActivity.this, habitsList);
                         gridview.setAdapter(adapter);
                     }
-
                 }
-
             }
-
-
         });
 
 

@@ -4,22 +4,24 @@ import java.io.Serializable;
 
 public class Habit implements Serializable {
 
+    private String id;
     private String name;
     private String picId;
     private String description;
     private String done;
 
 
-    public Habit(String name, String picId, String description, String done) {
+    public Habit(String id, String name, String picId, String description, String done) {
+        this.id = id;
         this.name = name;
         this.picId = picId;
         this.description = description;
         this.done = done;
     }
 
-    public String getDone() { return done; }
+    public String getId() { return id; }
 
-    public void setDone(String done) { this.done = done; }
+    public boolean isDone() { return done.equals("true"); }
 
     public String getName() {
         return name;
@@ -33,11 +35,6 @@ public class Habit implements Serializable {
         return picId;
     }
 
-    public void setPicId(String picId) {
-        this.picId = picId;
-    }
-
     public String getDescription() { return description; }
 
-    public void setDescription(String description) { this.description = description; }
 }
