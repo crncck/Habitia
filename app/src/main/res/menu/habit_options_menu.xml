@@ -12,16 +12,19 @@ tools:context=".HabitsActivity">
         <menu>
             <item
                 android:id="@+id/add_habit"
-                android:icon="@mipmap/add_foreground"
-                android:title="New Habit" />
+                android:icon="@android:drawable/ic_menu_add"
+                android:title="New Habit"
+
+                />
             <item
                 android:id="@+id/settings"
                 android:title = "Settings"
-                android:icon="@mipmap/settings_icon_foreground" />
+                android:icon="@android:drawable/ic_menu_manage"
+                />
             <item
                 android:id="@+id/sign_out"
                 android:title="Sign Out"
-                android:icon="@mipmap/sign_out_icon_foreground"/>
+                android:icon="@android:drawable/ic_menu_set_as"/>
         </menu>
     </item>
 </menu>
