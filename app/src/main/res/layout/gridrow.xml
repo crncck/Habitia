@@ -1,32 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical">
+    android:layout_width="100dp"
+    android:layout_height="100dp">
+
 
     <ProgressBar
         android:id="@+id/progress_bar"
         style="@style/CircularDeterminateProgressBar"
-        android:layout_width="match_parent"
-        android:layout_height="427dp"
+        android:layout_width="105dp"
+        android:layout_height="105dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/customtextview"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:progress="60" />
-
-    <com.github.siyamed.shapeimageview.CircularImageView
-        android:id="@+id/customimageview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/circle"
-        />
 
     <TextView
         android:id="@+id/customtextview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
+
+        android:gravity="top"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progress_bar"
+        app:layout_constraintVertical_bias="0.0" />
 
-</LinearLayout>
+    <com.github.siyamed.shapeimageview.CircularImageView
+        android:id="@+id/customimageview"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:background="@drawable/circle"
+        app:layout_constraintBottom_toBottomOf="@+id/progress_bar"
+        app:layout_constraintEnd_toEndOf="@+id/customtextview"
+        app:layout_constraintStart_toStartOf="@+id/customtextview"
+        app:layout_constraintTop_toTopOf="@+id/progress_bar" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
