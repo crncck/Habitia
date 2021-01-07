@@ -7,74 +7,12 @@
     android:background="@drawable/background_style"
     tools:context=".DetailsActivity">
 
-    <nl.dionsegijn.konfetti.KonfettiView
-        android:id="@+id/konfettiView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/targetText"
-        android:layout_width="141dp"
-        android:layout_height="44dp"
-        android:gravity="center"
-        android:text="target"
-        android:textAlignment="textStart"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/addValue"
-        app:layout_constraintEnd_toEndOf="@+id/habitDescription"
-        app:layout_constraintTop_toTopOf="@+id/addValue" />
-
-    <EditText
-        android:id="@+id/addValue"
-        android:layout_width="52dp"
-        android:layout_height="44dp"
-        android:layout_marginTop="30dp"
-        android:backgroundTint="@color/white"
-        android:ems="10"
-        android:hint="Value"
-        android:inputType="number"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textColorHint="?attr/colorButtonNormal"
-        app:layout_constraintEnd_toStartOf="@+id/targetText"
-        app:layout_constraintTop_toBottomOf="@+id/habitDescription" />
-
-    <ImageView
-        android:id="@+id/habitImage"
-        android:layout_width="141dp"
-        android:layout_height="139dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/square"
-        app:layout_constraintEnd_toEndOf="@+id/habitName"
-        app:layout_constraintHorizontal_bias="0.507"
-        app:layout_constraintStart_toStartOf="@+id/habitName"
-        app:layout_constraintTop_toBottomOf="@+id/habitName"
-        tools:srcCompat="@tools:sample/avatars" />
-
-    <TextView
-        android:id="@+id/habitDescription"
-        android:layout_width="244dp"
-        android:layout_height="74dp"
-        android:layout_marginTop="40dp"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/habitImage"
-        app:layout_constraintHorizontal_bias="0.504"
-        app:layout_constraintStart_toStartOf="@+id/habitImage"
-        app:layout_constraintTop_toBottomOf="@+id/habitImage" />
 
     <CheckBox
         android:id="@+id/checkBox"
         android:layout_width="98dp"
         android:layout_height="44dp"
+        android:layout_marginBottom="24dp"
         android:background="@color/background_color"
         android:shadowColor="@color/purple_500"
         android:text="@string/done"
@@ -82,20 +20,91 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/konfettiView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/addValue"
+        android:layout_width="60dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="24dp"
+        android:backgroundTint="@color/white"
+        android:ems="10"
+
+        android:inputType="number"
+
+        android:hint="value"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textColorHint="?attr/colorButtonNormal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/targetText"
+        app:layout_constraintHorizontal_bias="0.991"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addValue" />
+        app:layout_constraintTop_toBottomOf="@+id/habitDescription"
+        app:layout_constraintVertical_bias="0.286" />
+
+    <ImageView
+        android:id="@+id/habitImage"
+        android:layout_width="141dp"
+        android:layout_height="139dp"
+        android:layout_marginTop="44dp"
+        android:background="@drawable/square"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/habitName"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/habitDescription"
+        android:layout_width="244dp"
+        android:layout_height="74dp"
+        android:layout_marginTop="60dp"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/habitImage" />
+
+    <TextView
+        android:id="@+id/targetText"
+        android:layout_width="107dp"
+        android:layout_height="44dp"
+        android:layout_marginEnd="92dp"
+        android:gravity="center"
+        android:text="target"
+        android:textAlignment="textStart"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/habitDescription"
+        app:layout_constraintVertical_bias="0.286" />
 
     <TextView
         android:id="@+id/habitName"
         android:layout_width="242dp"
         android:layout_height="56dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="36dp"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/konfettiView" />
+
+    <nl.dionsegijn.konfetti.KonfettiView
+        android:id="@+id/konfettiView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
