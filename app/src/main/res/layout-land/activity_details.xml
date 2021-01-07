@@ -26,6 +26,8 @@
         android:backgroundTint="@color/white"
         android:ems="10"
         android:hint="value"
+        android:imeOptions="actionDone"
+        android:maxLines="1"
         android:inputType="number"
         android:textAlignment="center"
         android:textColor="@color/white"
@@ -52,7 +54,8 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/addValue"
         app:layout_constraintTop_toBottomOf="@+id/habitDescription"
-        app:layout_constraintVertical_bias="0.45" />
+        app:layout_constraintVertical_bias="0.45"
+        tools:ignore="RtlCompat" />
 
     <CheckBox
         android:id="@+id/checkBox"

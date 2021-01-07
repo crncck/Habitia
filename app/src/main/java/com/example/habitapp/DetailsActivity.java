@@ -3,6 +3,7 @@ package com.example.habitapp;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -103,6 +105,8 @@ public class DetailsActivity extends AppCompatActivity {
                  if (actionId == EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_DONE ||
                          event != null && event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
                      if (event == null || !event.isShiftPressed()) {
+                         InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                         imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                          // The user is done with typing
                          int enteredValue = Integer.parseInt(habitValue.getText().toString());
                          float tar = Integer.parseInt(target);
@@ -130,6 +134,7 @@ public class DetailsActivity extends AppCompatActivity {
                                  @Override
                                  public void run() {
                                      Intent intent = new Intent(DetailsActivity.this, HabitsActivity.class);
+                                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                      startActivity(intent);
                                  }
                              }, 3000);
@@ -142,6 +147,7 @@ public class DetailsActivity extends AppCompatActivity {
                                  @Override
                                  public void run() {
                                      Intent intent = new Intent(DetailsActivity.this, HabitsActivity.class);
+                                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                      startActivity(intent);
                                  }
                              }, 1500);
