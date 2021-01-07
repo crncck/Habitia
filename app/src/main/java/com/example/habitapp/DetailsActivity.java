@@ -9,7 +9,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -28,6 +30,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -47,12 +50,14 @@ public class DetailsActivity extends AppCompatActivity {
     CheckBox checkBox;
     FirebaseUser activeUser;
     DocumentReference currentHabit;
+    Date date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
 
+        date = new Date();
         habitImage = findViewById(R.id.habitImage);
         habitName = findViewById(R.id.habitName);
         habitDescription = findViewById(R.id.habitDescription);
@@ -70,7 +75,7 @@ public class DetailsActivity extends AppCompatActivity {
         target = habit.getTarget();
         value = habit.getValue();
         done_percent = habit.getDone_percent();
-        habitTarget.setText("/"+ target + " " + habit.getType());
+        habitTarget.setText("/" + target + " " + habit.getType());
         checkBox.setChecked(habit.isDone());
         checkBox.setClickable(false);
 
@@ -83,60 +88,75 @@ public class DetailsActivity extends AppCompatActivity {
         activeUser = FirebaseAuth.getInstance().getCurrentUser();
         currentHabit = FirebaseFirestore.getInstance().collection("users").document(activeUser.getUid()).collection("habits").document(habit.getId());
 
+        // Reset habit values next day
+        if (date.getHours() == 0) {
+            done_percent = "0";
+            value = "null";
+            currentHabit.update("done", "false");
+            currentHabit.update("value", value);
+            currentHabit.update("done_percent", done_percent);
+        }
 
-        habitValue.addTextChangedListener(new TextWatcher() {
+        habitValue.setOnEditorActionListener(new EditText.OnEditorActionListener() {
+             @Override
+             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                 if (actionId == EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_DONE ||
+                         event != null && event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                     if (event == null || !event.isShiftPressed()) {
+                         // The user is done with typing
+                         int enteredValue = Integer.parseInt(habitValue.getText().toString());
+                         float tar = Integer.parseInt(target);
+                         float percent = (enteredValue / tar) * 100;
+                         done_percent = String.valueOf((int) percent);
 
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (!s.toString().isEmpty()) {
-                    int enteredValue = Integer.parseInt(s.toString());
-                    done_percent = String.valueOf((enteredValue / Integer.parseInt(target)) * 100);
-                    currentHabit.update("value", habitValue.getText().toString());
-                    currentHabit.update("done_percent", done_percent);
+                         if (Integer.parseInt(done_percent) == 100 || Integer.parseInt(done_percent) > 100) {
+                             currentHabit.update("done", "true");
+                             Toast.makeText(DetailsActivity.this, "Congratulations!", Toast.LENGTH_SHORT).show();
+                             checkBox.setChecked(habit.isDone());
 
-                    if (Integer.parseInt(done_percent) == 100 || Integer.parseInt(done_percent) > 100) {
-                        currentHabit.update("done", "true");
-                        Toast.makeText(DetailsActivity.this,"Congratulations!",Toast.LENGTH_SHORT).show();
-                        checkBox.setChecked(habit.isDone());
+                             // Konfetti animation
+                             konfettiView.build()
+                                     .addColors(Color.YELLOW, Color.CYAN, Color.MAGENTA, Color.BLUE)
+                                     .setDirection(0.0, 359.0)
+                                     .setSpeed(1f, 5f)
+                                     .setFadeOutEnabled(true)
+                                     .setTimeToLive(2000L)
+                                     .addShapes(Shape.Square.INSTANCE, Shape.Circle.INSTANCE)
+                                     .addSizes(new Size(12, 5f))
+                                     .setPosition(-50f, konfettiView.getWidth() + 50f, -50f, -50f)
+                                     .streamFor(300, 5000L);
 
-                        // Konfetti animation
-                        konfettiView.build()
-                                .addColors(Color.YELLOW, Color.CYAN, Color.MAGENTA, Color.BLUE)
-                                .setDirection(0.0, 359.0)
-                                .setSpeed(1f, 5f)
-                                .setFadeOutEnabled(true)
-                                .setTimeToLive(2000L)
-                                .addShapes(Shape.Square.INSTANCE, Shape.Circle.INSTANCE)
-                                .addSizes(new Size(12, 5f))
-                                .setPosition(-50f, konfettiView.getWidth() + 50f, -50f, -50f)
-                                .streamFor(300, 5000L);
+                             new Handler().postDelayed(new Runnable() {
+                                 @Override
+                                 public void run() {
+                                     Intent intent = new Intent(DetailsActivity.this, HabitsActivity.class);
+                                     startActivity(intent);
+                                 }
+                             }, 3000);
 
-                    } else {
-                        currentHabit.update("done", "false");
-                        checkBox.setChecked(habit.isDone());
-                    }
+                         } else {
+                             currentHabit.update("done", "false");
+                             checkBox.setChecked(habit.isDone());
 
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            Intent intent = new Intent(DetailsActivity.this, HabitsActivity.class);
-                            startActivity(intent);
-                        }
-                    }, 5000);
-                }
+                             new Handler().postDelayed(new Runnable() {
+                                 @Override
+                                 public void run() {
+                                     Intent intent = new Intent(DetailsActivity.this, HabitsActivity.class);
+                                     startActivity(intent);
+                                 }
+                             }, 1500);
+                         }
+                         currentHabit.update("value", habitValue.getText().toString());
+                         currentHabit.update("done_percent", done_percent);
 
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start,
-                                          int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start,
-                                      int before, int count) {
-            }
-        });
+                         return true;
+                     }
+                 }
+                 return false;
+             }
+         }
+        );
 
     }
+
 }

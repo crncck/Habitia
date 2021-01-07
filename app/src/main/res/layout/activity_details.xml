@@ -30,9 +30,9 @@
         android:layout_marginStart="24dp"
         android:backgroundTint="@color/white"
         android:ems="10"
-
         android:inputType="number"
-
+        android:imeOptions="actionDone"
+        android:maxLines="1"
         android:hint="value"
         android:textAlignment="center"
         android:textColor="@color/white"
@@ -81,7 +81,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/habitDescription"
-        app:layout_constraintVertical_bias="0.286" />
+        app:layout_constraintVertical_bias="0.286"
+        tools:ignore="RtlCompat" />
 
     <TextView
         android:id="@+id/habitName"
