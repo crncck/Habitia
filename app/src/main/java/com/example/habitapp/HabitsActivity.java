@@ -173,9 +173,10 @@ public class HabitsActivity extends AppCompatActivity {
                         String target = (String) data.get("target");
                         String habit_value = (String) data.get("value");
                         String type = (String) data.get("type");
+                        String done_percent = (String) data.get("done_percent");
 
 
-                        habitsList.add(new Habit(habitId, name, image_id, description, done, target, habit_value, type));
+                        habitsList.add(new Habit(habitId, name, image_id, description, done, target, habit_value, type, done_percent));
 
                         HabitsAdapter adapter = new HabitsAdapter(HabitsActivity.this, habitsList);
                         gridview.setAdapter(adapter);
@@ -183,10 +184,5 @@ public class HabitsActivity extends AppCompatActivity {
                 }
             }
         });
-
-
-
     }
-
-
 }

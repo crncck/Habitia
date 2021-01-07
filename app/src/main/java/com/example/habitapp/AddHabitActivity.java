@@ -46,6 +46,7 @@ public class AddHabitActivity extends AppCompatActivity {
     String habitDone = "false";
     String habitValue;
     String habitType = "count";
+    String habitDonePercent = "0";
 
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth fAuth;
@@ -145,6 +146,7 @@ public class AddHabitActivity extends AppCompatActivity {
             habit.put("target", habitTarget);
             habit.put("value", habitValue);
             habit.put("type", habitType);
+            habit.put("done_percent", habitDonePercent);
 
             documentReference2.set(habit).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override

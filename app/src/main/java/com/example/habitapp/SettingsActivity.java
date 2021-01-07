@@ -85,6 +85,8 @@ public class SettingsActivity extends AppCompatActivity {
         storageReference = firebaseStorage.getReference();
         user = fAuth.getCurrentUser();
         userID = user.getUid();
+        userEmailText.setText(user.getEmail());
+
 
         registerForContextMenu(addProfileImage);
 
@@ -255,7 +257,6 @@ public class SettingsActivity extends AppCompatActivity {
                             surname = (String) data.get("surname");
                             downloadUrl = (String) data.get("profile_image");
 
-                            userEmailText.setText(user.getEmail());
                             userNameEditText.setText(name);
                             userSurnameEditText.setText(surname);
 
