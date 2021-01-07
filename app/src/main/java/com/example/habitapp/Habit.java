@@ -9,15 +9,26 @@ public class Habit implements Serializable {
     private String picId;
     private String description;
     private String done;
+    private String target;
+    private String value;
+    private String type;
 
-
-    public Habit(String id, String name, String picId, String description, String done) {
+    public Habit(String id, String name, String picId, String description, String done, String target, String value, String type) {
         this.id = id;
         this.name = name;
         this.picId = picId;
         this.description = description;
         this.done = done;
+        this.target = target;
+        this.value = value;
+        this.type = type;
     }
+
+    public String getTarget() { return target; }
+
+    public String getValue() { return value; }
+
+    public String getType() { return type; }
 
     public String getId() { return id; }
 

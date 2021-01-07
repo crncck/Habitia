@@ -165,13 +165,17 @@ public class HabitsActivity extends AppCompatActivity {
                     for (DocumentSnapshot snapshot : value.getDocuments()) {
 
                         Map<String, Object> data = snapshot.getData();
+                        String habitId = snapshot.getId();
                         String name = (String) data.get("name");
                         String description = (String) data.get("description");
                         String image_id = (String) data.get("image_id");
                         String done = (String) data.get("done");
-                        String habitId = snapshot.getId();
+                        String target = (String) data.get("target");
+                        String habit_value = (String) data.get("value");
+                        String type = (String) data.get("type");
 
-                        habitsList.add(new Habit(habitId, name, image_id, description, done));
+
+                        habitsList.add(new Habit(habitId, name, image_id, description, done, target, habit_value, type));
 
                         HabitsAdapter adapter = new HabitsAdapter(HabitsActivity.this, habitsList);
                         gridview.setAdapter(adapter);

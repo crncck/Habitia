@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,7 +38,9 @@ public class DetailsActivity extends AppCompatActivity {
 
     Habit habit;
     ImageView habitImage;
-    TextView habitName, habitDescription;
+    TextView habitName, habitDescription, habitTarget;
+    EditText habitValue;
+    String value;
     CheckBox checkBox;
 
     @Override
@@ -48,6 +51,8 @@ public class DetailsActivity extends AppCompatActivity {
         habitImage = findViewById(R.id.habitImage);
         habitName = findViewById(R.id.habitName);
         habitDescription = findViewById(R.id.habitDescription);
+        habitValue = findViewById(R.id.addValue);
+        habitTarget = findViewById(R.id.targetText);
         checkBox = findViewById(R.id.checkBox);
         final KonfettiView konfettiView = findViewById(R.id.konfettiView);
 
@@ -57,7 +62,18 @@ public class DetailsActivity extends AppCompatActivity {
         habitName.setText(habit.getName());
         habitImage.setImageResource(Integer.parseInt(habit.getPicId()));
         habitDescription.setText(habit.getDescription());
+        habitTarget.setText("/"+ habit.getTarget() + " " + habit.getType());
+        value = habit.getValue();
         checkBox.setChecked(habit.isDone());
+
+        if (value.equals("null")) {
+            habitValue.setText("Value");
+        } else {
+            habitValue.setText(value);
+        }
+
+
+
 
         checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,7 +94,11 @@ public class DetailsActivity extends AppCompatActivity {
                 Toast.makeText(DetailsActivity.this,"Congratulations!",Toast.LENGTH_SHORT).show();
 
                 FirebaseUser activeUser = FirebaseAuth.getInstance().getCurrentUser();
-                FirebaseFirestore.getInstance().collection("users").document(activeUser.getUid()).collection("habits").document(habit.getId()).update("done", "true");
+                DocumentReference currentHabit = FirebaseFirestore.getInstance().collection("users").document(activeUser.getUid()).collection("habits").document(habit.getId());
+
+                currentHabit.update("done", "true");
+                currentHabit.update("value", habitValue.getText().toString());
+
 
                 new Handler().postDelayed(new Runnable() {
                     @Override

@@ -15,5 +15,6 @@
     <string name="privacy">By creating an account, you agree to the<br/>Terms and Use and Privacy Policy</string>
     <string name="sign_up1">Already have an account?</string>
     <string name="email">E-mail</string>
+    <string name="target">target</string>
 
 </resources>

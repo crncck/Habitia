@@ -32,6 +32,7 @@ public class AddHabitActivity extends AppCompatActivity {
     Button button;
     EditText addName;
     EditText addDescription;
+    EditText addTarget;
     ImageView addImage;
     TextView addHabitText;
     FotoGallery SelectedFoto;
@@ -41,7 +42,10 @@ public class AddHabitActivity extends AppCompatActivity {
     String habitName;
     String habitDescription;
     String habitImage;
+    String habitTarget;
     String habitDone = "false";
+    String habitValue;
+    String habitType = "count";
 
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth fAuth;
@@ -61,6 +65,7 @@ public class AddHabitActivity extends AppCompatActivity {
         addName = findViewById(R.id.addName);
         addDescription = findViewById(R.id.addDescription);
         addImage = findViewById(R.id.addImage);
+        addTarget = findViewById(R.id.addTarget);
 
         firebaseFirestore = FirebaseFirestore.getInstance();
         fAuth = FirebaseAuth.getInstance();
@@ -83,8 +88,7 @@ public class AddHabitActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 TypeItem clickedItem = (TypeItem) parent.getItemAtPosition(position);
-                String clickedType = clickedItem.getTypeName();
-                Toast.makeText(AddHabitActivity.this, clickedType + " selected", Toast.LENGTH_LONG).show();
+                habitType = clickedItem.getTypeName();
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
@@ -112,6 +116,8 @@ public class AddHabitActivity extends AppCompatActivity {
 
         habitName = addName.getText().toString();
         habitDescription = addDescription.getText().toString();
+        habitTarget = addTarget.getText().toString();
+        habitValue = "null";
 
         if (bool == false) {
             Toast.makeText(AddHabitActivity.this, "Please select an icon", Toast.LENGTH_LONG).show();
@@ -123,6 +129,10 @@ public class AddHabitActivity extends AppCompatActivity {
             addDescription.setError("Add description of the habit");
             addDescription.setBackgroundResource(R.drawable.error_style);
             addDescription.setTextColor(R.color.black);
+        } else if (habitTarget.isEmpty()) {
+            addTarget.setError("Add a target value");
+            addTarget.setBackgroundResource(R.drawable.error_style);
+            addTarget.setTextColor(R.color.black);
         } else {
             habitImage = String.valueOf(SelectedFoto.getPicId());
             DocumentReference documentReference = firebaseFirestore.collection("users").document(userID);
@@ -132,6 +142,9 @@ public class AddHabitActivity extends AppCompatActivity {
             habit.put("image_id", habitImage);
             habit.put("description", habitDescription);
             habit.put("done", habitDone);
+            habit.put("target", habitTarget);
+            habit.put("value", habitValue);
+            habit.put("type", habitType);
 
             documentReference2.set(habit).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
@@ -144,8 +157,6 @@ public class AddHabitActivity extends AppCompatActivity {
                     Toast.makeText(AddHabitActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                 }
             });
-
-
 
             Intent intent = new Intent(AddHabitActivity.this,HabitsActivity.class);
             startActivity(intent);

@@ -13,8 +13,38 @@
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/targetText"
+        android:layout_width="141dp"
+        android:layout_height="44dp"
+        android:gravity="center"
+        android:text="target"
+        android:textAlignment="textStart"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/addValue"
+        app:layout_constraintEnd_toEndOf="@+id/habitDescription"
+        app:layout_constraintTop_toTopOf="@+id/addValue" />
+
+    <EditText
+        android:id="@+id/addValue"
+        android:layout_width="52dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="30dp"
+        android:backgroundTint="@color/white"
+        android:ems="10"
+        android:hint="Value"
+        android:inputType="number"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textColorHint="?attr/colorButtonNormal"
+        app:layout_constraintEnd_toStartOf="@+id/targetText"
+        app:layout_constraintTop_toBottomOf="@+id/habitDescription" />
 
     <ImageView
         android:id="@+id/habitImage"
@@ -32,11 +62,12 @@
         android:id="@+id/habitDescription"
         android:layout_width="244dp"
         android:layout_height="74dp"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="40dp"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/habitImage"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="@+id/habitImage"
         app:layout_constraintTop_toBottomOf="@+id/habitImage" />
 
@@ -44,16 +75,15 @@
         android:id="@+id/checkBox"
         android:layout_width="98dp"
         android:layout_height="44dp"
-        android:layout_marginTop="36dp"
         android:background="@color/background_color"
         android:shadowColor="@color/purple_500"
         android:text="@string/done"
         android:textColor="#99949A"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="@+id/habitDescription"
-        app:layout_constraintHorizontal_bias="0.493"
-        app:layout_constraintStart_toStartOf="@+id/habitDescription"
-        app:layout_constraintTop_toBottomOf="@+id/habitDescription" />
+        app:layout_constraintBottom_toBottomOf="@+id/konfettiView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addValue" />
 
     <TextView
         android:id="@+id/habitName"
