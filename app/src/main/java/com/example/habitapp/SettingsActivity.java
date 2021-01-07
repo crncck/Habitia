@@ -27,6 +27,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -47,6 +48,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     Button doneButton;
     ImageView addProfileImage;
+    TextView userEmailText;
 
     EditText userNameEditText;
     EditText userSurnameEditText;
@@ -61,6 +63,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth fAuth;
+    private FirebaseUser user;
     private String userID;
     private FirebaseStorage firebaseStorage;
     private StorageReference storageReference;
@@ -73,14 +76,15 @@ public class SettingsActivity extends AppCompatActivity {
         addProfileImage = findViewById(R.id.addProfileImage);
         userNameEditText = findViewById(R.id.userNameEditText);
         userSurnameEditText = findViewById(R.id.userSurnameEditText);
-
+        userEmailText = findViewById(R.id.settingsUserEmailText);
         doneButton = findViewById(R.id.doneButton);
 
         firebaseFirestore = FirebaseFirestore.getInstance();
         fAuth = FirebaseAuth.getInstance();
         firebaseStorage = FirebaseStorage.getInstance();
         storageReference = firebaseStorage.getReference();
-        userID = fAuth.getCurrentUser().getUid();
+        user = fAuth.getCurrentUser();
+        userID = user.getUid();
 
         registerForContextMenu(addProfileImage);
 
@@ -251,6 +255,7 @@ public class SettingsActivity extends AppCompatActivity {
                             surname = (String) data.get("surname");
                             downloadUrl = (String) data.get("profile_image");
 
+                            userEmailText.setText(user.getEmail());
                             userNameEditText.setText(name);
                             userSurnameEditText.setText(surname);
 

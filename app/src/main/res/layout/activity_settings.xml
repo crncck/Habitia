@@ -20,36 +20,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/settingsNameText"
-        android:layout_width="88dp"
-        android:layout_height="26dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="5dp"
-        android:text="@string/name"
-        android:textAlignment="textEnd"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/userNameEditText"
-        app:layout_constraintEnd_toStartOf="@+id/userNameEditText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/userNameEditText" />
-
-    <TextView
-        android:id="@+id/settingsSurnameText"
-        android:layout_width="88dp"
-        android:layout_height="25dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="40dp"
-        android:text="@string/Surname"
-        android:textAlignment="textEnd"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/userSurnameEditText"
-        app:layout_constraintEnd_toStartOf="@+id/userSurnameEditText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/settingsNameText" />
-
     <com.github.siyamed.shapeimageview.CircularImageView
         android:id="@+id/addProfileImage"
         android:layout_width="130dp"
@@ -71,38 +41,101 @@
         android:id="@+id/doneButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="40dp"
         android:onClick="doneButton"
         android:text="@string/done"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
-        android:id="@+id/userNameEditText"
-        android:layout_width="199dp"
-        android:layout_height="0dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="346dp"
+        android:layout_height="218dp"
         android:layout_marginTop="40dp"
-        android:layout_marginEnd="60dp"
-        android:backgroundTint="@color/white"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addProfileImage" />
-
-    <EditText
-        android:id="@+id/userSurnameEditText"
-        android:layout_width="199dp"
-        android:layout_height="39dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="60dp"
-        android:layout_marginBottom="30dp"
-        android:backgroundTint="@color/white"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:textColor="@color/white"
+        android:layout_marginBottom="40dp"
         app:layout_constraintBottom_toTopOf="@+id/doneButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userNameEditText" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addProfileImage">
+
+        <EditText
+            android:id="@+id/userNameEditText"
+            android:layout_width="199dp"
+            android:layout_height="0dp"
+            android:backgroundTint="@color/white"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/settingsNameText"
+            tools:layout_editor_absoluteY="77dp" />
+
+        <EditText
+            android:id="@+id/userSurnameEditText"
+            android:layout_width="199dp"
+            android:layout_height="0dp"
+            android:backgroundTint="@color/white"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/settingsSurnameText"
+            tools:layout_editor_absoluteY="143dp" />
+
+        <TextView
+            android:id="@+id/settingsNameText"
+            android:layout_width="89dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="30dp"
+            android:gravity="center"
+            android:text="@string/name"
+            android:textAlignment="textEnd"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/userNameEditText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/userNameEditText" />
+
+        <TextView
+            android:id="@+id/settingsSurnameText"
+            android:layout_width="89dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="30dp"
+            android:gravity="center"
+            android:text="@string/Surname"
+            android:textAlignment="textEnd"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/userSurnameEditText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/userSurnameEditText" />
+
+        <TextView
+            android:id="@+id/settingsEmailText"
+            android:layout_width="89dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="30dp"
+            android:gravity="center"
+            android:text="@string/email"
+            android:textAlignment="textEnd"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/settingsUserEmailText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/settingsUserEmailText" />
+
+        <TextView
+            android:id="@+id/settingsUserEmailText"
+            android:layout_width="199dp"
+            android:layout_height="32dp"
+            android:gravity="center"
+            android:text="@string/email"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/settingsEmailText"
+            tools:layout_editor_absoluteY="23dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

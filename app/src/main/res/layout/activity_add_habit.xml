@@ -13,7 +13,7 @@
         android:layout_width="175dp"
         android:layout_height="170dp"
         android:layout_marginTop="40dp"
-        android:background="@drawable/circle"
+        android:background="@drawable/square"
         android:onClick="addImage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -34,9 +34,10 @@
 
     <ImageView
         android:id="@+id/habitImage"
-        android:layout_width="173dp"
-        android:layout_height="139dp"
+        android:layout_width="147dp"
+        android:layout_height="140dp"
         android:layout_marginStart="44dp"
+        android:background="@drawable/square"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
