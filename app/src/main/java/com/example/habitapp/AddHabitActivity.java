@@ -34,30 +34,18 @@ import java.util.Map;
 public class AddHabitActivity extends AppCompatActivity {
 
     Button button;
-    EditText addName;
-    EditText addDescription;
-    EditText addTarget;
+    EditText addName, addDescription, addTarget;
     ImageView addImage;
     TextView addHabitText;
     FotoGallery SelectedFoto;
     Boolean bool = false;
-
-    String habitName;
-    String habitDescription;
-    String habitImage;
-    String habitTarget;
-    String habitDone = "false";
-    String habitValue;
-    String habitType = "count";
-    String habitDonePercent = "0";
-
+    String habitName, habitDescription, habitImage, habitTarget;
+    String habitDone = "false", habitValue, habitType = "count", habitDonePercent = "0";
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth fAuth;
     private String userID;
-
     private ArrayList<TypeItem> mTypeList;
     private ItemAdapter mAdapter;
-
 
 
     @Override
@@ -115,7 +103,6 @@ public class AddHabitActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-
     }
 
     private void initList() {
@@ -127,8 +114,6 @@ public class AddHabitActivity extends AppCompatActivity {
         mTypeList.add(new TypeItem("min", R.mipmap.minute_icon_foreground));
         mTypeList.add(new TypeItem("hr", R.mipmap.hour_icon_foreground));
         mTypeList.add(new TypeItem("Cal", R.mipmap.calorie_icon_foreground));
-
-
     }
 
 
@@ -186,13 +171,8 @@ public class AddHabitActivity extends AppCompatActivity {
 
     }
 
-
     public void addImage(View view) {
-
-
         Intent intent = new Intent(AddHabitActivity.this,FotoGalleryActivity.class);
         startActivity(intent);
-
-
     }
 }

@@ -2,11 +2,13 @@ package com.example.habitapp;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -46,27 +48,19 @@ import java.util.Map;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    Button doneButton;
-    ImageView addProfileImage;
-    TextView userEmailText;
-
-    EditText userNameEditText;
-    EditText userSurnameEditText;
-
-    Bitmap selectedImage;
-    Uri imageData;
-    String imageDownloadUrl;
-
-    String name;
-    String surname;
-    String downloadUrl;
-
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth fAuth;
     private FirebaseUser user;
     private String userID;
     private FirebaseStorage firebaseStorage;
     private StorageReference storageReference;
+    Button doneButton;
+    ImageView addProfileImage;
+    TextView userEmailText;
+    EditText userNameEditText, userSurnameEditText;
+    Bitmap selectedImage;
+    Uri imageData;
+    String imageDownloadUrl, name, surname, downloadUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,11 +81,21 @@ public class SettingsActivity extends AppCompatActivity {
         userID = user.getUid();
         userEmailText.setText(user.getEmail());
 
-
         registerForContextMenu(addProfileImage);
 
         getDataFromFireStore();
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this).setMessage("Unsaved changes will be lost. Are you sure?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(SettingsActivity.this, HabitsActivity.class);
+                startActivity(intent);
+            }
+        }).setNegativeButton("No", null).show();
     }
 
     @Override
@@ -143,11 +147,8 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
         if (requestCode == 2 && resultCode == RESULT_OK && data != null) {
-
             imageData = data.getData();
-
             try {
-
                 if (Build.VERSION.SDK_INT >= 28) {
                     ImageDecoder.Source source = ImageDecoder.createSource(this.getContentResolver(),imageData);
                     selectedImage = ImageDecoder.decodeBitmap(source);
@@ -170,9 +171,7 @@ public class SettingsActivity extends AppCompatActivity {
         DocumentReference documentReference = firebaseFirestore.collection("users").document(userID);
         Map<String, Object> user = new HashMap<>();
 
-
         if (imageData != null) {
-
             String imageName = "images/" + userID + ".jpg";
 
             storageReference.child(imageName).putFile(imageData).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -201,10 +200,8 @@ public class SettingsActivity extends AppCompatActivity {
                                     Toast.makeText(SettingsActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                                 }
                             });
-
                         }
                     });
-
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -229,14 +226,9 @@ public class SettingsActivity extends AppCompatActivity {
                     Toast.makeText(SettingsActivity.this, e.getLocalizedMessage().toString(), Toast.LENGTH_LONG).show();
                 }
             });
-
         }
-
-        //profileImage.setImageBitmap(selectedImage2);
         Intent intent = new Intent(SettingsActivity.this, HabitsActivity.class);
         startActivity(intent);
-
-
     }
 
     public void getDataFromFireStore() {
@@ -262,25 +254,16 @@ public class SettingsActivity extends AppCompatActivity {
 
                             // If user does not add profile image show template image
                             if (downloadUrl == null) {
-                                addProfileImage.setImageResource(R.mipmap.add_habit_icon_foreground);                            } else {
+                                addProfileImage.setImageResource(R.mipmap.add_habit_icon_foreground);
+                            } else {
                                 Picasso.get().load(downloadUrl).into(addProfileImage);
                                 Picasso.get().load(downloadUrl).into(HabitsActivity.profileImage);
 
                             }
-
-
-
                         }
-
                     }
-
                 }
-
             }
         });
     }
-
-
-
-
 }

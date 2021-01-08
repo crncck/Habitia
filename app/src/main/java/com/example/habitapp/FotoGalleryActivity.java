@@ -13,8 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
-
 public class FotoGalleryActivity extends AppCompatActivity {
 
     final public  List<FotoGallery> fotogallerylist = new ArrayList<>();
@@ -30,7 +28,6 @@ public class FotoGalleryActivity extends AppCompatActivity {
         galleryText = findViewById(R.id.galleryText);
         gridView = findViewById(R.id.gridview);
 
-
         fotogallerylist.add(new FotoGallery(R.mipmap.yoga_foreground));
         fotogallerylist.add(new FotoGallery(R.mipmap.weightlifting_foreground));
         fotogallerylist.add(new FotoGallery(R.mipmap.trekking_foreground));
@@ -45,7 +42,6 @@ public class FotoGalleryActivity extends AppCompatActivity {
         fotogallerylist.add(new FotoGallery(R.mipmap.dumbbell_foreground));
         fotogallerylist.add(new FotoGallery(R.mipmap.beach_foreground));
         fotogallerylist.add(new FotoGallery(R.mipmap.nature_foreground));
-
 
         fotogallerylist.add(new FotoGallery(R.mipmap.books_foreground));
         fotogallerylist.add(new FotoGallery(R.mipmap.chess_foreground));
@@ -66,7 +62,6 @@ public class FotoGalleryActivity extends AppCompatActivity {
         fotogallerylist.add(new FotoGallery(R.mipmap.chef_hat_foreground));
         fotogallerylist.add(new FotoGallery(R.mipmap.apple_foreground));
 
-
         FotoGalleryAdapter adapter = new FotoGalleryAdapter(FotoGalleryActivity.this,fotogallerylist);
         gridView.setAdapter(adapter);
 
@@ -80,5 +75,4 @@ public class FotoGalleryActivity extends AppCompatActivity {
             }
         });
     }
-
 }

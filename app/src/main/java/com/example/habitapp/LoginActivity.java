@@ -22,10 +22,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
     EditText emailText, passwordText;
-    String email;
-    String password;
+    String email, password;
     Button signInButton;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +31,9 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         firebaseAuth = FirebaseAuth.getInstance();
-
         emailText = findViewById(R.id.emailText);
         passwordText = findViewById(R.id.passwordText);
         signInButton = findViewById(R.id.signInButton);
-
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
         if (firebaseUser != null) {
@@ -46,7 +42,6 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
-
     }
 
     public void signInClicked (View view) {
@@ -68,18 +63,15 @@ public class LoginActivity extends AppCompatActivity {
                     Intent intent = new Intent(LoginActivity.this, HabitsActivity.class);
                     startActivity(intent);
                     finish();
-
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
 
                     Toast.makeText(LoginActivity.this, e.getLocalizedMessage().toString(), Toast.LENGTH_LONG).show();
-
                 }
             });
         }
-
     }
 
     public void toSignUp (View view) {
@@ -87,8 +79,4 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-
-
-
-
 }

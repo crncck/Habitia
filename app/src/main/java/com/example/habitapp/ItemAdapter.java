@@ -43,5 +43,4 @@ public class ItemAdapter extends ArrayAdapter<TypeItem> {
         }
         return convertView;
     }
-
 }

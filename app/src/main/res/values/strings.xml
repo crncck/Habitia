@@ -16,5 +16,6 @@
     <string name="sign_up1">Already have an account?</string>
     <string name="email">E-mail</string>
     <string name="target">target</string>
+    <string name="save">Save</string>
 
 </resources>

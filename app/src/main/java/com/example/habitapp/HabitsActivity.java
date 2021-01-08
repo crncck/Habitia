@@ -44,10 +44,10 @@ public class HabitsActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firebaseFirestore;
     private String userID;
-    GridView gridview;
-    final public List<Habit> habitsList = new ArrayList<>();
-    TextView habitsText;
     static CircularImageView profileImage;
+    final public List<Habit> habitsList = new ArrayList<>();
+    GridView gridview;
+    TextView habitsText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,11 +65,8 @@ public class HabitsActivity extends AppCompatActivity {
 
         getDataFromFireStore();
 
-
         HabitsAdapter adapter = new HabitsAdapter(HabitsActivity.this, habitsList);
         gridview.setAdapter(adapter);
-
-
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -77,7 +74,7 @@ public class HabitsActivity extends AppCompatActivity {
                 Intent intent = new Intent(HabitsActivity.this, DetailsActivity.class);
                 intent.putExtra("SelectedHabit", habitsList.get(i));
                 startActivity(intent);
-
+                finish();
             }
         });
     }
@@ -114,7 +111,6 @@ public class HabitsActivity extends AppCompatActivity {
             finish();
         }
 
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -141,14 +137,10 @@ public class HabitsActivity extends AppCompatActivity {
                                 Picasso.get().load(downloadUrl).into(profileImage);
                             }
                         }
-
                     }
-
                 }
-
             }
         });
-
 
         DocumentReference document = collectionReference.document(userID);
         CollectionReference collectionReference2 = document.collection("habits");
@@ -174,7 +166,6 @@ public class HabitsActivity extends AppCompatActivity {
                         String habit_value = (String) data.get("value");
                         String type = (String) data.get("type");
                         String done_percent = (String) data.get("done_percent");
-
 
                         habitsList.add(new Habit(habitId, name, image_id, description, done, target, habit_value, type, done_percent));
 

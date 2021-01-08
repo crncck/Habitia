@@ -3,6 +3,7 @@ package com.example.habitapp;
 import java.io.Serializable;
 
 public class FotoGallery implements Serializable {
+
     private int picId;
 
     public FotoGallery(int picId){

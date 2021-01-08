@@ -52,7 +52,5 @@ public class HabitsAdapter extends BaseAdapter {
         progressBar.setProgress(Integer.parseInt(habit.getDone_percent()));
 
         return rowView;
-
-
     }
 }

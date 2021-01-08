@@ -16,7 +16,6 @@ public class FotoGalleryAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
     private List<FotoGallery> fotoGalleries;
 
-
     public FotoGalleryAdapter(Activity activity, List<FotoGallery> fotoGalleries){
         mInflater =  (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.fotoGalleries= fotoGalleries;
@@ -48,8 +47,5 @@ public class FotoGalleryAdapter extends BaseAdapter {
         imageView.setImageResource(fotoGallery.getPicId());
 
         return rowView;
-
     }
-
-
 }

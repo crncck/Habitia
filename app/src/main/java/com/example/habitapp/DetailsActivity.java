@@ -53,18 +53,17 @@ import nl.dionsegijn.konfetti.models.Size;
 
 public class DetailsActivity extends AppCompatActivity {
 
+    private FirebaseFirestore firebaseFirestore;
+    List<EventDay> events = new ArrayList<>();
     Habit habit;
     ImageView habitImage, deleteHabit;
     TextView habitName, habitDescription, habitTarget;
     EditText habitValue;
-    String value, target;
-    String done_percent;
+    String value, target, done_percent;
     FirebaseUser activeUser;
     DocumentReference currentHabit;
     Date date;
     LocalDate currentDate;
-    private FirebaseFirestore firebaseFirestore;
-    List<EventDay> events = new ArrayList<>();
     MediaPlayer player;
 
     @Override
@@ -83,7 +82,6 @@ public class DetailsActivity extends AppCompatActivity {
 
         final KonfettiView konfettiView = findViewById(R.id.konfettiView);
         firebaseFirestore = FirebaseFirestore.getInstance();
-
 
         Intent intent = getIntent();
         this.habit = (Habit) intent.getSerializableExtra("SelectedHabit");
@@ -170,7 +168,6 @@ public class DetailsActivity extends AppCompatActivity {
             currentHabit.update("value", value);
             currentHabit.update("done_percent", done_percent);
         }
-
 
         habitValue.setOnEditorActionListener(new EditText.OnEditorActionListener() {
              @SuppressLint("ResourceAsColor")
@@ -264,4 +261,10 @@ public class DetailsActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(DetailsActivity.this, HabitsActivity.class);
+        startActivity(intent);
+    }
 }
