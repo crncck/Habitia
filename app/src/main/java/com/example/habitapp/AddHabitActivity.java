@@ -4,9 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,7 +42,6 @@ public class AddHabitActivity extends AppCompatActivity {
     FotoGallery SelectedFoto;
     Boolean bool = false;
 
-    String habitId;
     String habitName;
     String habitDescription;
     String habitImage;
@@ -62,11 +65,14 @@ public class AddHabitActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_habit);
 
+        initList();
+
         addHabitText = findViewById(R.id.addHabitText);
         addName = findViewById(R.id.addName);
         addDescription = findViewById(R.id.addDescription);
         addImage = findViewById(R.id.addImage);
         addTarget = findViewById(R.id.addTarget);
+        button = findViewById(R.id.addButton);
 
         firebaseFirestore = FirebaseFirestore.getInstance();
         fAuth = FirebaseAuth.getInstance();
@@ -80,7 +86,21 @@ public class AddHabitActivity extends AppCompatActivity {
             addImage.setImageResource(SelectedFoto.getPicId());
         }
 
-        initList();
+        addTarget.setOnEditorActionListener(new EditText.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_DONE ||
+                        event != null && event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                    if (event == null || !event.isShiftPressed()) {
+                        InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                        // The user is done with typing
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
 
         Spinner spinnerTypes = findViewById(R.id.typeSpinner);
         mAdapter = new ItemAdapter(this, mTypeList);

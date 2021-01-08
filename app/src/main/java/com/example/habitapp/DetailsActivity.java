@@ -2,15 +2,20 @@ package com.example.habitapp;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import com.applandeo.materialcalendarview.CalendarView;
@@ -49,20 +54,18 @@ import nl.dionsegijn.konfetti.models.Size;
 public class DetailsActivity extends AppCompatActivity {
 
     Habit habit;
-    ImageView habitImage;
+    ImageView habitImage, deleteHabit;
     TextView habitName, habitDescription, habitTarget;
     EditText habitValue;
     String value, target;
     String done_percent;
-    CheckBox checkBox;
     FirebaseUser activeUser;
     DocumentReference currentHabit;
     Date date;
     LocalDate currentDate;
     private FirebaseFirestore firebaseFirestore;
     List<EventDay> events = new ArrayList<>();
-
-
+    MediaPlayer player;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,10 +78,8 @@ public class DetailsActivity extends AppCompatActivity {
         habitDescription = findViewById(R.id.habitDescription);
         habitValue = findViewById(R.id.addValue);
         habitTarget = findViewById(R.id.targetText);
-        checkBox = findViewById(R.id.checkBox);
+        deleteHabit = findViewById(R.id.deleteHabit);
         CalendarView calendarView = findViewById(R.id.calendarView);
-        calendarView.setHeaderColor(R.color.background_color);
-        calendarView.setHeaderLabelColor(R.color.pink);
 
         final KonfettiView konfettiView = findViewById(R.id.konfettiView);
         firebaseFirestore = FirebaseFirestore.getInstance();
@@ -88,14 +89,12 @@ public class DetailsActivity extends AppCompatActivity {
         this.habit = (Habit) intent.getSerializableExtra("SelectedHabit");
 
         habitName.setText(habit.getName());
-        //habitImage.setImageResource(Integer.parseInt(habit.getPicId()));
+        habitImage.setImageResource(Integer.parseInt(habit.getPicId()));
         habitDescription.setText(habit.getDescription());
         target = habit.getTarget();
         value = habit.getValue();
         done_percent = habit.getDone_percent();
         habitTarget.setText("/" + target + " " + habit.getType());
-        checkBox.setChecked(habit.isDone());
-        checkBox.setClickable(false);
 
         if (value.equals("null")) {
             habitValue.setHint("Value");
@@ -107,6 +106,35 @@ public class DetailsActivity extends AppCompatActivity {
         currentHabit = firebaseFirestore.collection("users").document(activeUser.getUid()).collection("habits").document(habit.getId());
         CollectionReference collectionReference = currentHabit.collection("dates");
         DocumentReference documentReference = collectionReference.document();
+
+        deleteHabit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(DetailsActivity.this);
+                builder.setTitle(habitName.getText().toString() + " habit will be deleted.");
+                builder.setMessage("Are you sure to delete?");
+
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        currentHabit.delete();
+                        Intent intent = new Intent(DetailsActivity.this, HabitsActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                    }
+                });
+
+                // Set the alert dialog no button click listener
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
 
         collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
@@ -145,6 +173,7 @@ public class DetailsActivity extends AppCompatActivity {
 
 
         habitValue.setOnEditorActionListener(new EditText.OnEditorActionListener() {
+             @SuppressLint("ResourceAsColor")
              @Override
              public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                  if (actionId == EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_DONE ||
@@ -153,73 +182,91 @@ public class DetailsActivity extends AppCompatActivity {
                          InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                          imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                          // The user is done with typing
-                         int enteredValue = Integer.parseInt(habitValue.getText().toString());
-                         float tar = Integer.parseInt(target);
-                         float percent = (enteredValue / tar) * 100;
-                         done_percent = String.valueOf((int) percent);
-
-                         if (Integer.parseInt(done_percent) == 100 || Integer.parseInt(done_percent) > 100) {
-                             currentHabit.update("done", "true");
-                             Toast.makeText(DetailsActivity.this, "Congratulations!", Toast.LENGTH_SHORT).show();
-                             checkBox.setChecked(habit.isDone());
-
-                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                 currentDate = LocalDate.now();
-                                 Map<String, Object> dates = new HashMap<>();
-                                 dates.put("date", String.valueOf(currentDate));
-
-                                 documentReference.set(dates).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                     @Override
-                                     public void onSuccess(Void aVoid) {
-
-                                     }
-                                 }).addOnFailureListener(new OnFailureListener() {
-                                     @Override
-                                     public void onFailure(@NonNull Exception e) {
-                                         Toast.makeText(DetailsActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                                     }
-                                 });
-
-                             }
-
-                             // Konfetti animation
-                             konfettiView.build()
-                                     .addColors(Color.YELLOW, Color.CYAN, Color.MAGENTA, Color.BLUE)
-                                     .setDirection(0.0, 359.0)
-                                     .setSpeed(1f, 5f)
-                                     .setFadeOutEnabled(true)
-                                     .setTimeToLive(2000L)
-                                     .addShapes(Shape.Square.INSTANCE, Shape.Circle.INSTANCE)
-                                     .addSizes(new Size(12, 5f))
-                                     .setPosition(-50f, konfettiView.getWidth() + 50f, -50f, -50f)
-                                     .streamFor(300, 5000L);
-
-                             new Handler().postDelayed(new Runnable() {
-                                 @Override
-                                 public void run() {
-                                     Intent intent = new Intent(DetailsActivity.this, HabitsActivity.class);
-                                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                     startActivity(intent);
-                                 }
-                             }, 3000);
-
+                         if (habitValue.getText().toString().isEmpty()) {
+                             habitValue.setError("Please enter a number");
+                             habitValue.setBackgroundResource(R.drawable.error_style);
+                             habitValue.setTextColor(R.color.black);
                          } else {
-                             currentHabit.update("done", "false");
-                             checkBox.setChecked(habit.isDone());
+                             int enteredValue = Integer.parseInt(habitValue.getText().toString());
+                             float tar = Integer.parseInt(target);
+                             float percent = (enteredValue / tar) * 100;
+                             done_percent = String.valueOf((int) percent);
 
-                             new Handler().postDelayed(new Runnable() {
-                                 @Override
-                                 public void run() {
-                                     Intent intent = new Intent(DetailsActivity.this, HabitsActivity.class);
-                                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                     startActivity(intent);
+                             if (Integer.parseInt(done_percent) == 100 || Integer.parseInt(done_percent) > 100) {
+                                 currentHabit.update("done", "true");
+                                 Toast.makeText(DetailsActivity.this, "Congratulations!", Toast.LENGTH_SHORT).show();
+                                 player=MediaPlayer.create(DetailsActivity.this,R.raw.sound);
+                                 player.start();
+
+                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                     currentDate = LocalDate.now();
+                                     collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+                                         @Override
+                                         public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                                             if (error != null) {
+                                                 Toast.makeText(DetailsActivity.this, error.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                                             }
+
+                                             if (value != null) {
+                                                 for (DocumentSnapshot snapshot : value.getDocuments()) {
+                                                     Map<String, Object> data = snapshot.getData();
+                                                     String dateValue = (String) data.get("date");
+                                                     if (!dateValue.equals(String.valueOf(currentDate))) {
+                                                         Map<String, Object> dates = new HashMap<>();
+                                                         dates.put("date", String.valueOf(currentDate));
+
+                                                         documentReference.set(dates).addOnFailureListener(new OnFailureListener() {
+                                                             @Override
+                                                             public void onFailure(@NonNull Exception e) {
+                                                                 Toast.makeText(DetailsActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                                                             }
+                                                         });
+                                                     }
+                                                 }
+                                             }
+                                         }
+                                     });
                                  }
-                             }, 1500);
-                         }
-                         currentHabit.update("value", habitValue.getText().toString());
-                         currentHabit.update("done_percent", done_percent);
 
-                         return true;
+                                 // Konfetti animation
+                                 konfettiView.build()
+                                         .addColors(Color.YELLOW, Color.CYAN, Color.MAGENTA, Color.BLUE)
+                                         .setDirection(0.0, 359.0)
+                                         .setSpeed(1f, 5f)
+                                         .setFadeOutEnabled(true)
+                                         .setTimeToLive(2000L)
+                                         .addShapes(Shape.Square.INSTANCE, Shape.Circle.INSTANCE)
+                                         .addSizes(new Size(12, 5f))
+                                         .setPosition(-50f, konfettiView.getWidth() + 50f, -50f, -50f)
+                                         .streamFor(300, 5000L);
+
+                                 new Handler().postDelayed(new Runnable() {
+                                     @Override
+                                     public void run() {
+                                         Intent intent = new Intent(DetailsActivity.this, HabitsActivity.class);
+                                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                         startActivity(intent);
+                                     }
+                                 }, 3000);
+
+                             } else {
+                                 currentHabit.update("done", "false");
+                                 Toast.makeText(DetailsActivity.this, "You can still do this :)", Toast.LENGTH_SHORT).show();
+
+                                 new Handler().postDelayed(new Runnable() {
+                                     @Override
+                                     public void run() {
+                                         Intent intent = new Intent(DetailsActivity.this, HabitsActivity.class);
+                                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                         startActivity(intent);
+                                     }
+                                 }, 1500);
+                             }
+                             currentHabit.update("value", habitValue.getText().toString());
+                             currentHabit.update("done_percent", done_percent);
+
+                             return true;
+                         }
                      }
                  }
                  return false;
