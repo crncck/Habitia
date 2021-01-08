@@ -35,38 +35,55 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
+
                 <TextView
-                    android:id="@+id/habitDescription"
-                    android:layout_width="244dp"
-                    android:layout_height="74dp"
-                    android:layout_marginTop="36dp"
+                    android:id="@+id/habitName"
+                    android:layout_width="253dp"
+                    android:layout_height="51dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/frame"
                     android:gravity="center"
                     android:textAlignment="center"
                     android:textColor="@color/white"
-                    android:textSize="18sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.502"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/habitImage" />
+                    android:textSize="30sp"
+                    tools:layout_editor_absoluteX="84dp"
+                    tools:layout_editor_absoluteY="36dp" />
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="144dp"
+                    android:orientation="horizontal">
 
+                    <TextView
+                        android:id="@+id/habitDescription"
+                        android:layout_width="244dp"
+                        android:layout_height="74dp"
+                        android:layout_marginLeft="50dp"
+                        android:layout_marginTop="20dp"
+                        android:gravity="center"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.502"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/habitImage" />
 
+                    <ImageView
+                        android:id="@+id/habitImage"
+                        android:layout_width="141dp"
+                        android:layout_height="139dp"
+                        android:layout_marginLeft="200dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="40dp"
+                        android:background="@drawable/square"
+                        android:gravity="center"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/habitName"
+                        tools:srcCompat="@tools:sample/avatars" />
 
-                <ImageView
-                    android:id="@+id/habitImage"
-                    android:layout_width="141dp"
-                    android:layout_height="139dp"
-                    android:layout_marginTop="44dp"
-                    android:background="@drawable/square"
-                    android:gravity="center"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/habitName"
-                    tools:srcCompat="@tools:sample/avatars" />
-
-
-
-
+                </LinearLayout>
 
 
             </LinearLayout>
@@ -75,8 +92,7 @@
                 android:id="@+id/linearLayout7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="255dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginLeft="70dp"
                 android:gravity="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -90,6 +106,7 @@
                     android:layout_gravity="center|center_horizontal"
                     android:layout_marginStart="24dp"
                     android:layout_marginLeft="30dp"
+                    android:background="@drawable/error_style"
                     android:backgroundTint="@color/white"
                     android:ems="10"
                     android:foregroundGravity="center"
@@ -113,7 +130,6 @@
                     android:id="@+id/targetText"
                     android:layout_width="107dp"
                     android:layout_height="44dp"
-
                     android:layout_marginEnd="92dp"
                     android:foregroundGravity="center"
                     android:gravity="center"
@@ -130,26 +146,6 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-
-                <CheckBox
-                    android:id="@+id/checkBox"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/background_color"
-                    android:gravity="center"
-                    android:shadowColor="@color/purple_500"
-                    android:text="@string/done"
-                    android:textColor="#99949A"
-                    android:textSize="24sp" />
-            </LinearLayout>
-
 
             <LinearLayout
                 android:id="@+id/linearLayout6"
@@ -161,7 +157,17 @@
                     android:id="@+id/calendarView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp" />
+                    android:layout_marginTop="30dp"
+                    app:abbreviationsBarColor="#33386E"
+                    app:abbreviationsLabelsColor="@color/white"
+                    app:daysLabelsColor="@color/black"
+                    app:eventsEnabled="true"
+                    app:headerColor="@color/background_color"
+                    app:headerLabelColor="@color/white"
+                    app:pagesColor="#EDEEF1"
+                    app:selectionColor="@color/background_color"
+                    app:selectionLabelColor="@color/pink"
+                    app:todayLabelColor="@color/pink"/>
             </LinearLayout>
 
 

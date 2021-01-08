@@ -78,6 +78,8 @@
             android:backgroundTint="@color/white"
             android:ems="10"
             android:hint="Enter target value"
+            android:imeOptions="actionDone"
+            android:maxLines="1"
             android:inputType="number"
             android:textAlignment="center"
             android:textColor="@color/white"
