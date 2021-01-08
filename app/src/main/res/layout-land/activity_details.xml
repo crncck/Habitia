@@ -4,113 +4,179 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
     android:background="@drawable/background_style"
+    android:foregroundGravity="center"
     tools:context=".DetailsActivity">
+
+
+    <ScrollView
+        android:id="@+id/scrollView3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="@+id/scrollView3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/habitDescription"
+                    android:layout_width="244dp"
+                    android:layout_height="74dp"
+                    android:layout_marginTop="36dp"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.502"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/habitImage" />
+
+
+
+
+                <ImageView
+                    android:id="@+id/habitImage"
+                    android:layout_width="141dp"
+                    android:layout_height="139dp"
+                    android:layout_marginTop="44dp"
+                    android:background="@drawable/square"
+                    android:gravity="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/habitName"
+                    tools:srcCompat="@tools:sample/avatars" />
+
+
+
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="255dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <EditText
+                    android:id="@+id/addValue"
+                    android:layout_width="60dp"
+                    android:layout_height="44dp"
+                    android:layout_gravity="center|center_horizontal"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginLeft="30dp"
+                    android:backgroundTint="@color/white"
+                    android:ems="10"
+                    android:foregroundGravity="center"
+                    android:gravity="center"
+                    android:hint="value"
+                    android:imeOptions="actionDone"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textColorHint="?attr/colorButtonNormal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/targetText"
+                    app:layout_constraintHorizontal_bias="0.991"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/habitDescription"
+                    app:layout_constraintVertical_bias="0.286" />
+
+
+                <TextView
+                    android:id="@+id/targetText"
+                    android:layout_width="107dp"
+                    android:layout_height="44dp"
+
+                    android:layout_marginEnd="92dp"
+                    android:foregroundGravity="center"
+                    android:gravity="center"
+                    android:text="target"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/habitDescription"
+                    app:layout_constraintVertical_bias="0.286"
+                    tools:ignore="RtlCompat" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <CheckBox
+                    android:id="@+id/checkBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/background_color"
+                    android:gravity="center"
+                    android:shadowColor="@color/purple_500"
+                    android:text="@string/done"
+                    android:textColor="#99949A"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/linearLayout6"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <com.applandeo.materialcalendarview.CalendarView
+                    android:id="@+id/calendarView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
 
     <nl.dionsegijn.konfetti.KonfettiView
         android:id="@+id/konfettiView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <EditText
-        android:id="@+id/addValue"
-        android:layout_width="60dp"
-        android:layout_height="44dp"
-        android:layout_marginStart="32dp"
-        android:backgroundTint="@color/white"
-        android:ems="10"
-        android:hint="value"
-        android:imeOptions="actionDone"
-        android:maxLines="1"
-        android:inputType="number"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textColorHint="?attr/colorButtonNormal"
-        app:layout_constraintBottom_toBottomOf="@+id/targetText"
-        app:layout_constraintStart_toStartOf="@+id/habitDescription"
-        app:layout_constraintTop_toTopOf="@+id/targetText"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/targetText"
-        android:layout_width="141dp"
-        android:layout_height="44dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="35dp"
-        android:gravity="center"
-        android:text="target"
-        android:textAlignment="textStart"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/checkBox"
-        app:layout_constraintEnd_toEndOf="@+id/habitDescription"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/addValue"
-        app:layout_constraintTop_toBottomOf="@+id/habitDescription"
-        app:layout_constraintVertical_bias="0.45"
-        tools:ignore="RtlCompat" />
-
-    <CheckBox
-        android:id="@+id/checkBox"
-        android:layout_width="98dp"
-        android:layout_height="44dp"
-        android:layout_marginBottom="16dp"
-        android:background="@color/background_color"
-        android:shadowColor="@color/purple_500"
-        android:text="@string/done"
-        android:textColor="#99949A"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/habitName"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <ImageView
-        android:id="@+id/habitImage"
-        android:layout_width="147dp"
-        android:layout_height="140dp"
-        android:layout_marginStart="44dp"
-        android:background="@drawable/square"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
-
-    <TextView
-        android:id="@+id/habitDescription"
-        android:layout_width="244dp"
-        android:layout_height="74dp"
-        android:layout_marginStart="186dp"
-        android:layout_marginEnd="48dp"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/habitImage"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.459" />
-
-    <TextView
-        android:id="@+id/habitName"
-        android:layout_width="242dp"
-        android:layout_height="56dp"
-        android:layout_marginTop="28dp"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
