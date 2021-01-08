@@ -2,16 +2,20 @@ package com.example.habitapp;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import com.applandeo.materialcalendarview.CalendarView;
@@ -50,7 +54,7 @@ import nl.dionsegijn.konfetti.models.Size;
 public class DetailsActivity extends AppCompatActivity {
 
     Habit habit;
-    ImageView habitImage;
+    ImageView habitImage, deleteHabit;
     TextView habitName, habitDescription, habitTarget;
     EditText habitValue;
     String value, target;
@@ -61,6 +65,7 @@ public class DetailsActivity extends AppCompatActivity {
     LocalDate currentDate;
     private FirebaseFirestore firebaseFirestore;
     List<EventDay> events = new ArrayList<>();
+    MediaPlayer player;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +78,7 @@ public class DetailsActivity extends AppCompatActivity {
         habitDescription = findViewById(R.id.habitDescription);
         habitValue = findViewById(R.id.addValue);
         habitTarget = findViewById(R.id.targetText);
+        deleteHabit = findViewById(R.id.deleteHabit);
         CalendarView calendarView = findViewById(R.id.calendarView);
 
         final KonfettiView konfettiView = findViewById(R.id.konfettiView);
@@ -100,6 +106,35 @@ public class DetailsActivity extends AppCompatActivity {
         currentHabit = firebaseFirestore.collection("users").document(activeUser.getUid()).collection("habits").document(habit.getId());
         CollectionReference collectionReference = currentHabit.collection("dates");
         DocumentReference documentReference = collectionReference.document();
+
+        deleteHabit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(DetailsActivity.this);
+                builder.setTitle(habitName.getText().toString() + " habit will be deleted.");
+                builder.setMessage("Are you sure to delete?");
+
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        currentHabit.delete();
+                        Intent intent = new Intent(DetailsActivity.this, HabitsActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                    }
+                });
+
+                // Set the alert dialog no button click listener
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
 
         collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
@@ -160,6 +195,8 @@ public class DetailsActivity extends AppCompatActivity {
                              if (Integer.parseInt(done_percent) == 100 || Integer.parseInt(done_percent) > 100) {
                                  currentHabit.update("done", "true");
                                  Toast.makeText(DetailsActivity.this, "Congratulations!", Toast.LENGTH_SHORT).show();
+                                 player=MediaPlayer.create(DetailsActivity.this,R.raw.sound);
+                                 player.start();
 
                                  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                      currentDate = LocalDate.now();

@@ -1,13 +1,23 @@
 package com.example.habitapp;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -15,10 +25,18 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
+
+import nl.dionsegijn.konfetti.models.Shape;
+import nl.dionsegijn.konfetti.models.Size;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -42,6 +60,21 @@ public class SignUpActivity extends AppCompatActivity {
         passwordEditText = findViewById(R.id.passwordEditText);
         signUpButton = findViewById(R.id.signUpButton);
 
+        passwordEditText.setOnEditorActionListener(new EditText.OnEditorActionListener() {
+             @Override
+             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                 if (actionId == EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_DONE ||
+                         event != null && event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                     if (event == null || !event.isShiftPressed()) {
+                         InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                         imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                         // The user is done with typing
+                         return true;
+                     }
+                 }
+                 return false;
+             }
+         });
     }
 
     public void toLogin (View view) {

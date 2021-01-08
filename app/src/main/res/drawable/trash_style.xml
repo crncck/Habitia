@@ -3,8 +3,8 @@
     <item>
         <bitmap
             android:gravity="top|left"
-            android:tint="@color/pink"
-            android:src="@drawable/tick_icon" />
+            android:tint="#670325"
+            android:src="@drawable/trash_icon" />
     </item>
 
 </layer-list>
