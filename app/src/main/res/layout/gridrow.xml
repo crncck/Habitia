@@ -2,15 +2,15 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="100dp"
-    android:layout_height="100dp">
+    android:layout_width="match_parent"
+    android:layout_height="300dp">
 
 
     <ProgressBar
         android:id="@+id/progress_bar"
         style="@style/CircularDeterminateProgressBar"
-        android:layout_width="105dp"
-        android:layout_height="105dp"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/customtextview"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,8 +35,8 @@
 
     <com.github.siyamed.shapeimageview.CircularImageView
         android:id="@+id/customimageview"
-        android:layout_width="65dp"
-        android:layout_height="65dp"
+        android:layout_width="78dp"
+        android:layout_height="78dp"
         android:background="@drawable/circle"
         app:layout_constraintBottom_toBottomOf="@+id/progress_bar"
         app:layout_constraintEnd_toEndOf="@+id/customtextview"
