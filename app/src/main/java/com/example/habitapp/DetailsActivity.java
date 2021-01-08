@@ -200,30 +200,18 @@ public class DetailsActivity extends AppCompatActivity {
 
                                  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                      currentDate = LocalDate.now();
-                                     collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+                                     Map<String, Object> dates = new HashMap<>();
+                                     dates.put("date", String.valueOf(currentDate));
+
+                                     documentReference.set(dates).addOnSuccessListener(new OnSuccessListener<Void>() {
                                          @Override
-                                         public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                                             if (error != null) {
-                                                 Toast.makeText(DetailsActivity.this, error.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                                             }
+                                         public void onSuccess(Void aVoid) {
 
-                                             if (value != null) {
-                                                 for (DocumentSnapshot snapshot : value.getDocuments()) {
-                                                     Map<String, Object> data = snapshot.getData();
-                                                     String dateValue = (String) data.get("date");
-                                                     if (!dateValue.equals(String.valueOf(currentDate))) {
-                                                         Map<String, Object> dates = new HashMap<>();
-                                                         dates.put("date", String.valueOf(currentDate));
-
-                                                         documentReference.set(dates).addOnFailureListener(new OnFailureListener() {
-                                                             @Override
-                                                             public void onFailure(@NonNull Exception e) {
-                                                                 Toast.makeText(DetailsActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                                                             }
-                                                         });
-                                                     }
-                                                 }
-                                             }
+                                         }
+                                     }).addOnFailureListener(new OnFailureListener() {
+                                         @Override
+                                         public void onFailure(@NonNull Exception e) {
+                                             Toast.makeText(DetailsActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                                          }
                                      });
                                  }
