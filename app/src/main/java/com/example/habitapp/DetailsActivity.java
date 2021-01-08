@@ -1,26 +1,29 @@
 package com.example.habitapp;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.KeyEvent;
-import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
+import com.applandeo.materialcalendarview.CalendarView;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.applandeo.materialcalendarview.EventDay;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.datepicker.MaterialCalendar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -30,12 +33,14 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.squareup.picasso.Picasso;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import nl.dionsegijn.konfetti.KonfettiView;
 import nl.dionsegijn.konfetti.models.Shape;
@@ -53,6 +58,11 @@ public class DetailsActivity extends AppCompatActivity {
     FirebaseUser activeUser;
     DocumentReference currentHabit;
     Date date;
+    LocalDate currentDate;
+    private FirebaseFirestore firebaseFirestore;
+    List<EventDay> events = new ArrayList<>();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,13 +76,19 @@ public class DetailsActivity extends AppCompatActivity {
         habitValue = findViewById(R.id.addValue);
         habitTarget = findViewById(R.id.targetText);
         checkBox = findViewById(R.id.checkBox);
+        CalendarView calendarView = findViewById(R.id.calendarView);
+        calendarView.setHeaderColor(R.color.background_color);
+        calendarView.setHeaderLabelColor(R.color.pink);
+
         final KonfettiView konfettiView = findViewById(R.id.konfettiView);
+        firebaseFirestore = FirebaseFirestore.getInstance();
+
 
         Intent intent = getIntent();
         this.habit = (Habit) intent.getSerializableExtra("SelectedHabit");
 
         habitName.setText(habit.getName());
-        habitImage.setImageResource(Integer.parseInt(habit.getPicId()));
+        //habitImage.setImageResource(Integer.parseInt(habit.getPicId()));
         habitDescription.setText(habit.getDescription());
         target = habit.getTarget();
         value = habit.getValue();
@@ -88,7 +104,35 @@ public class DetailsActivity extends AppCompatActivity {
         }
 
         activeUser = FirebaseAuth.getInstance().getCurrentUser();
-        currentHabit = FirebaseFirestore.getInstance().collection("users").document(activeUser.getUid()).collection("habits").document(habit.getId());
+        currentHabit = firebaseFirestore.collection("users").document(activeUser.getUid()).collection("habits").document(habit.getId());
+        CollectionReference collectionReference = currentHabit.collection("dates");
+        DocumentReference documentReference = collectionReference.document();
+
+        collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (error != null) {
+                    Toast.makeText(DetailsActivity.this, error.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                }
+
+                if (value != null) {
+                    for (DocumentSnapshot snapshot : value.getDocuments()) {
+
+                        Calendar calendar = Calendar.getInstance();
+                        Map<String, Object> data = snapshot.getData();
+                        String dateValue = (String) data.get("date");
+                        String[] items1 = dateValue.split("-");
+                        int year= Integer.parseInt(items1[0]);
+                        int month=Integer.parseInt(items1[1]) - 1;
+                        int day=Integer.parseInt(items1[2]);
+
+                        calendar.set(year,month,day);
+                        events.add(new EventDay(calendar, R.drawable.calendar_icons));
+                    }
+                    calendarView.setEvents(events);
+                }
+            }
+        });
 
         // Reset habit values next day
         if (date.getHours() == 0) {
@@ -98,6 +142,7 @@ public class DetailsActivity extends AppCompatActivity {
             currentHabit.update("value", value);
             currentHabit.update("done_percent", done_percent);
         }
+
 
         habitValue.setOnEditorActionListener(new EditText.OnEditorActionListener() {
              @Override
@@ -117,6 +162,25 @@ public class DetailsActivity extends AppCompatActivity {
                              currentHabit.update("done", "true");
                              Toast.makeText(DetailsActivity.this, "Congratulations!", Toast.LENGTH_SHORT).show();
                              checkBox.setChecked(habit.isDone());
+
+                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                 currentDate = LocalDate.now();
+                                 Map<String, Object> dates = new HashMap<>();
+                                 dates.put("date", String.valueOf(currentDate));
+
+                                 documentReference.set(dates).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                     @Override
+                                     public void onSuccess(Void aVoid) {
+
+                                     }
+                                 }).addOnFailureListener(new OnFailureListener() {
+                                     @Override
+                                     public void onFailure(@NonNull Exception e) {
+                                         Toast.makeText(DetailsActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                                     }
+                                 });
+
+                             }
 
                              // Konfetti animation
                              konfettiView.build()
