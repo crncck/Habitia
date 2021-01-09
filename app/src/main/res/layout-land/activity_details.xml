@@ -9,51 +9,13 @@
     android:foregroundGravity="center"
     tools:context=".DetailsActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/toolbar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/habitName"
-        android:layout_width="193dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="90dp"
-        android:layout_marginEnd="190dp"
-        android:gravity="center"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/scrollView3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/toolbar2" />
-
-    <ImageView
-        android:id="@+id/deleteHabit"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="350dp"
-        android:layout_marginBottom="40dp"
-        android:src="@drawable/trash_style"
-        app:layout_constraintBottom_toTopOf="@+id/habitName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ScrollView
         android:id="@+id/scrollView3"
-        android:layout_width="411dp"
-        android:layout_height="465dp"
-        android:layout_marginTop="170dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/toolbar2">
+        app:layout_constraintTop_toBottomOf="@+id/toolbar2">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -71,6 +33,21 @@
                 app:layout_constraintTop_toTopOf="parent">
 
 
+                <ImageView
+                    android:id="@+id/habitImage"
+                    android:layout_width="141dp"
+                    android:layout_height="139dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="25dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/spinner_box_style"
+                    android:gravity="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/habitName"
+                    tools:srcCompat="@tools:sample/avatars" />
+
                 <LinearLayout
                     android:layout_width="260dp"
                     android:layout_height="match_parent"
@@ -80,6 +57,7 @@
                         android:id="@+id/linearLayout7"
                         android:layout_width="344dp"
                         android:layout_height="56dp"
+                        android:layout_marginLeft="25dp"
                         android:layout_marginTop="20dp"
                         android:gravity="center"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -148,22 +126,8 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/habitImage" />
 
-                </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/habitImage"
-                    android:layout_width="141dp"
-                    android:layout_height="139dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginBottom="20dp"
-                    android:background="@drawable/spinner_box_style"
-                    android:gravity="center"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/habitName"
-                    tools:srcCompat="@tools:sample/avatars" />
+                </LinearLayout>
 
 
             </LinearLayout>
@@ -214,10 +178,50 @@
 
     </ScrollView>
 
+    <TextView
+        android:id="@+id/habitName"
+        android:layout_width="193dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="@+id/toolbar2"
+        app:layout_constraintHorizontal_bias="0.127"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar2"
+        android:layout_width="686dp"
+        android:layout_height="76dp"
+        android:background="@drawable/toolbar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
     <nl.dionsegijn.konfetti.KonfettiView
         android:id="@+id/konfettiView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/deleteHabit"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/trash_style"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.778"
+        app:layout_constraintStart_toEndOf="@+id/habitName"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.521" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
