@@ -3,7 +3,7 @@
     <item>
         <bitmap
             android:gravity="top|left"
-            android:tint="#670325"
+            android:tint="#F6F2F3"
             android:src="@drawable/trash_icon" />
     </item>
 

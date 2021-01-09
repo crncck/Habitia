@@ -8,6 +8,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -18,8 +19,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.ContextMenu;
+import android.view.Gravity;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -61,6 +68,8 @@ public class SettingsActivity extends AppCompatActivity {
     Bitmap selectedImage;
     Uri imageData;
     String imageDownloadUrl, name, surname, downloadUrl;
+    LayoutInflater layoutInflater;
+    View layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +82,9 @@ public class SettingsActivity extends AppCompatActivity {
         userEmailText = findViewById(R.id.settingsUserEmailText);
         doneButton = findViewById(R.id.doneButton);
 
+        layoutInflater = getLayoutInflater();
+        layout = layoutInflater.inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.custom_toast_container));
+
         firebaseFirestore = FirebaseFirestore.getInstance();
         fAuth = FirebaseAuth.getInstance();
         firebaseStorage = FirebaseStorage.getInstance();
@@ -84,6 +96,22 @@ public class SettingsActivity extends AppCompatActivity {
         registerForContextMenu(addProfileImage);
 
         getDataFromFireStore();
+
+        userSurnameEditText.setOnEditorActionListener(new EditText.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_DONE ||
+                        event != null && event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                    if (event == null || !event.isShiftPressed()) {
+                        InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                        // The user is done with typing
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
 
     }
 
@@ -169,57 +197,27 @@ public class SettingsActivity extends AppCompatActivity {
     public void doneButton (View view) {
 
         DocumentReference documentReference = firebaseFirestore.collection("users").document(userID);
-        Map<String, Object> user = new HashMap<>();
+        Map<String, Object> users = new HashMap<>();
 
         if (imageData != null) {
-            String imageName = "images/" + userID + ".jpg";
-
-            storageReference.child(imageName).putFile(imageData).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                    // Download URL
-                    StorageReference newReference = FirebaseStorage.getInstance().getReference(imageName);
-                    newReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            imageDownloadUrl = uri.toString();
-
-                            user.put("profile_image", imageDownloadUrl);
-                            user.put("name", userNameEditText.getText().toString());
-                            user.put("surname", userSurnameEditText.getText().toString());
-
-                            documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Toast.makeText(SettingsActivity.this, "Profile settings changed successfully", Toast.LENGTH_LONG).show();
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(SettingsActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                                }
-                            });
-                        }
-                    });
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(SettingsActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                }
-            });
+            BackgroundThread thread = new BackgroundThread(users, documentReference);
+            thread.start();
 
         } else {
-            user.put("profile_image", downloadUrl);
-            user.put("name", userNameEditText.getText().toString());
-            user.put("surname", userSurnameEditText.getText().toString());
+            users.put("profile_image", downloadUrl);
+            users.put("name", userNameEditText.getText().toString());
+            users.put("surname", userSurnameEditText.getText().toString());
 
-            documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+            documentReference.set(users).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
-                    Toast.makeText(SettingsActivity.this, "Profile settings changed successfully", Toast.LENGTH_LONG).show();
-                }
+                    TextView text = (TextView) layout.findViewById(R.id.text);
+                    text.setText("Profile settings changed successfully");
+                    Toast toast = new Toast(getApplicationContext());
+                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 950);
+                    toast.setDuration(Toast.LENGTH_SHORT);
+                    toast.setView(layout);
+                    toast.show();                }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
@@ -265,5 +263,68 @@ public class SettingsActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    class BackgroundThread extends Thread {
+
+        Map<String, Object> users;
+        DocumentReference documentReference;
+
+        BackgroundThread(Map<String, Object> users, DocumentReference documentReference) {
+            this.users = users;
+            this.documentReference = documentReference;
+        }
+
+        @Override
+        public void run() {
+            String imageName = "images/" + userID + ".jpg";
+
+            storageReference.child(imageName).putFile(imageData).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                    // Download URL
+                    StorageReference newReference = FirebaseStorage.getInstance().getReference(imageName);
+                    newReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            imageDownloadUrl = uri.toString();
+                            users.put("profile_image", imageDownloadUrl);
+                            users.put("name", userNameEditText.getText().toString());
+                            users.put("surname", userSurnameEditText.getText().toString());
+
+                            documentReference.set(users).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    TextView text = (TextView) layout.findViewById(R.id.text);
+                                    text.setText("Profile settings changed successfully");
+                                    Toast toast = new Toast(getApplicationContext());
+                                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 950);
+                                    toast.setDuration(Toast.LENGTH_SHORT);
+                                    toast.setView(layout);
+                                    toast.show();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(SettingsActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                                }
+                            });
+                        }
+                    });
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(SettingsActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
+
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

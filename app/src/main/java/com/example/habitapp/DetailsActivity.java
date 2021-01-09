@@ -14,8 +14,11 @@ import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import com.applandeo.materialcalendarview.CalendarView;
@@ -65,6 +68,8 @@ public class DetailsActivity extends AppCompatActivity {
     Date date;
     LocalDate currentDate;
     MediaPlayer player;
+    LayoutInflater layoutInflater;
+    View layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +84,9 @@ public class DetailsActivity extends AppCompatActivity {
         habitTarget = findViewById(R.id.targetText);
         deleteHabit = findViewById(R.id.deleteHabit);
         CalendarView calendarView = findViewById(R.id.calendarView);
+
+        layoutInflater = getLayoutInflater();
+        layout = layoutInflater.inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.custom_toast_container));
 
         final KonfettiView konfettiView = findViewById(R.id.konfettiView);
         firebaseFirestore = FirebaseFirestore.getInstance();
@@ -160,15 +168,6 @@ public class DetailsActivity extends AppCompatActivity {
             }
         });
 
-        // Reset habit values next day
-        if (date.getHours() == 0) {
-            done_percent = "0";
-            value = "null";
-            currentHabit.update("done", "false");
-            currentHabit.update("value", value);
-            currentHabit.update("done_percent", done_percent);
-        }
-
         habitValue.setOnEditorActionListener(new EditText.OnEditorActionListener() {
              @SuppressLint("ResourceAsColor")
              @Override
@@ -188,10 +187,17 @@ public class DetailsActivity extends AppCompatActivity {
                              float tar = Integer.parseInt(target);
                              float percent = (enteredValue / tar) * 100;
                              done_percent = String.valueOf((int) percent);
+                             currentHabit.update("done_percent", done_percent);
 
                              if (Integer.parseInt(done_percent) == 100 || Integer.parseInt(done_percent) > 100) {
                                  currentHabit.update("done", "true");
-                                 Toast.makeText(DetailsActivity.this, "Congratulations!", Toast.LENGTH_SHORT).show();
+                                 TextView text = (TextView) layout.findViewById(R.id.text);
+                                 text.setText("Congratulations!");
+                                 Toast toast = new Toast(getApplicationContext());
+                                 toast.setGravity(Gravity.CENTER_VERTICAL, 0, 400);
+                                 toast.setDuration(Toast.LENGTH_LONG);
+                                 toast.setView(layout);
+                                 toast.show();
                                  player=MediaPlayer.create(DetailsActivity.this,R.raw.sound);
                                  player.start();
 
@@ -229,26 +235,29 @@ public class DetailsActivity extends AppCompatActivity {
                                      @Override
                                      public void run() {
                                          Intent intent = new Intent(DetailsActivity.this, HabitsActivity.class);
-                                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                          startActivity(intent);
                                      }
                                  }, 3000);
 
                              } else {
                                  currentHabit.update("done", "false");
-                                 Toast.makeText(DetailsActivity.this, "You can still do this :)", Toast.LENGTH_SHORT).show();
+                                 TextView text = (TextView) layout.findViewById(R.id.text);
+                                 text.setText("You can still do this :)");
+                                 Toast toast = new Toast(getApplicationContext());
+                                 toast.setGravity(Gravity.CENTER_VERTICAL, 0, 400);
+                                 toast.setDuration(Toast.LENGTH_SHORT);
+                                 toast.setView(layout);
+                                 toast.show();
 
                                  new Handler().postDelayed(new Runnable() {
                                      @Override
                                      public void run() {
                                          Intent intent = new Intent(DetailsActivity.this, HabitsActivity.class);
-                                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                          startActivity(intent);
                                      }
                                  }, 1500);
                              }
                              currentHabit.update("value", habitValue.getText().toString());
-                             currentHabit.update("done_percent", done_percent);
 
                              return true;
                          }

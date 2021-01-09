@@ -10,14 +10,51 @@
     tools:context=".DetailsActivity">
 
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/toolbar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/habitName"
+        android:layout_width="193dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="350dp"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar3"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/deleteHabit"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="620dp"
+        android:src="@drawable/trash_style"
+        app:layout_constraintBottom_toTopOf="@+id/habitName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ScrollView
         android:id="@+id/scrollView3"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="wrap_content"
+        android:layoutDirection="inherit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/toolbar3">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,53 +66,92 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="@+id/scrollView3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
 
+                <ImageView
+                    android:id="@+id/habitImage"
+                    android:layout_width="141dp"
+                    android:layout_height="139dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="-40dp"
+                    android:background="@drawable/spinner_box_style"
+                    android:gravity="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/habitName"
+                    tools:srcCompat="@tools:sample/avatars" />
+
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="260dp"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/habitName"
-                        android:layout_width="253dp"
-                        android:layout_height="51dp"
-                        android:layout_marginLeft="225dp"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/frame"
+                    <LinearLayout
+                        android:id="@+id/linearLayout7"
+                        android:layout_width="344dp"
+                        android:layout_height="56dp"
+                        android:layout_marginTop="20dp"
                         android:gravity="center"
-                        android:textAlignment="center"
-                        android:textColor="@color/white"
-                        android:textSize="30sp"
-                        tools:layout_editor_absoluteX="84dp"
-                        tools:layout_editor_absoluteY="36dp" />
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
 
-                    <ImageView
-                        android:id="@+id/deleteHabit"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="140dp"
-                        android:layout_marginTop="15dp"
-                        android:src="@drawable/trash_style" />
 
-                </LinearLayout>
+                        <EditText
+                            android:id="@+id/addValue"
+                            android:layout_width="60dp"
+                            android:layout_height="44dp"
+                            android:layout_gravity="center|center_horizontal"
+                            android:layout_marginStart="24dp"
+                            android:ems="10"
+                            android:foregroundGravity="center"
+                            android:gravity="center"
+                            android:hint="value"
+                            android:imeOptions="actionDone"
+                            android:inputType="number"
+                            android:maxLines="1"
+                            android:textAlignment="center"
+                            android:textColor="@color/white"
+                            android:textColorHint="@color/white"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/targetText"
+                            app:layout_constraintHorizontal_bias="0.991"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/habitDescription"
+                            app:layout_constraintVertical_bias="0.286" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="144dp"
-                    android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/targetText"
+                            android:layout_width="107dp"
+                            android:layout_height="44dp"
+
+                            android:layout_marginEnd="92dp"
+                            android:foregroundGravity="center"
+                            android:gravity="center"
+                            android:text="target"
+                            android:textAlignment="textStart"
+                            android:textColor="@color/background_color"
+                            android:textSize="18sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/habitDescription"
+                            app:layout_constraintVertical_bias="0.286"
+                            tools:ignore="RtlCompat" />
+
+
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/habitDescription"
-                        android:layout_width="244dp"
-                        android:layout_height="74dp"
-                        android:layout_marginLeft="50dp"
-                        android:layout_marginTop="20dp"
+                        android:layout_width="247dp"
+                        android:layout_height="53dp"
+                        android:layout_marginLeft="8dp"
+                        android:backgroundTintMode="multiply"
                         android:gravity="center"
                         android:textAlignment="center"
                         android:textColor="@color/white"
@@ -85,105 +161,49 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/habitImage" />
 
-                    <ImageView
-                        android:id="@+id/habitImage"
-                        android:layout_width="141dp"
-                        android:layout_height="139dp"
-                        android:layout_marginLeft="200dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="40dp"
-                        android:background="@drawable/square"
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayout6"
+                    android:layout_width="match_parent"
+                    android:layout_height="273dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/calendarText"
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:layout_marginTop="30dp"
                         android:gravity="center"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/habitName"
-                        tools:srcCompat="@tools:sample/avatars" />
+                        android:text="Calendar"
+                        android:textAlignment="center"
+                        android:textColor="@color/background_color"
+                        android:textSize="18sp"
+                        tools:layout_editor_absoluteX="16dp"
+                        tools:layout_editor_absoluteY="108dp" />
+
+                    <com.applandeo.materialcalendarview.CalendarView
+                        android:id="@+id/calendarView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        app:abbreviationsBarColor="#33386E"
+                        app:abbreviationsLabelsColor="@color/white"
+                        app:daysLabelsColor="@color/black"
+                        app:eventsEnabled="true"
+                        app:headerColor="@color/background_color"
+                        app:headerLabelColor="@color/white"
+                        app:pagesColor="#EDEEF1"
+                        app:selectionColor="@color/background_color"
+                        app:selectionLabelColor="@color/pink"
+                        app:todayLabelColor="@color/pink">
+
+                    </com.applandeo.materialcalendarview.CalendarView>
 
                 </LinearLayout>
 
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/linearLayout7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="70dp"
-                android:gravity="center"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-
-                <EditText
-                    android:id="@+id/addValue"
-                    android:layout_width="60dp"
-                    android:layout_height="44dp"
-                    android:layout_gravity="center|center_horizontal"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginLeft="30dp"
-                    android:background="@drawable/error_style"
-                    android:backgroundTint="@color/white"
-                    android:ems="10"
-                    android:foregroundGravity="center"
-                    android:gravity="center"
-                    android:hint="value"
-                    android:imeOptions="actionDone"
-                    android:inputType="number"
-                    android:maxLines="1"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textColorHint="?attr/colorButtonNormal"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/targetText"
-                    app:layout_constraintHorizontal_bias="0.991"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/habitDescription"
-                    app:layout_constraintVertical_bias="0.286" />
-
-
-                <TextView
-                    android:id="@+id/targetText"
-                    android:layout_width="107dp"
-                    android:layout_height="44dp"
-                    android:layout_marginEnd="92dp"
-                    android:foregroundGravity="center"
-                    android:gravity="center"
-                    android:text="target"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/habitDescription"
-                    app:layout_constraintVertical_bias="0.286"
-                    tools:ignore="RtlCompat" />
-
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:id="@+id/linearLayout6"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center">
-
-                <com.applandeo.materialcalendarview.CalendarView
-                    android:id="@+id/calendarView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    app:abbreviationsBarColor="#33386E"
-                    app:abbreviationsLabelsColor="@color/white"
-                    app:daysLabelsColor="@color/black"
-                    app:eventsEnabled="true"
-                    app:headerColor="@color/background_color"
-                    app:headerLabelColor="@color/white"
-                    app:pagesColor="#EDEEF1"
-                    app:selectionColor="@color/background_color"
-                    app:selectionLabelColor="@color/pink"
-                    app:todayLabelColor="@color/pink"/>
             </LinearLayout>
 
 

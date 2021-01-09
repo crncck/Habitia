@@ -79,6 +79,8 @@
             android:backgroundTint="@color/white"
             android:ems="10"
             android:inputType="textPersonName"
+            android:imeOptions="actionDone"
+            android:maxLines="1"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.466"
@@ -97,7 +99,8 @@
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@+id/userNameEditText"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/userNameEditText" />
+            app:layout_constraintTop_toTopOf="@+id/userNameEditText"
+            tools:ignore="RtlCompat" />
 
         <TextView
             android:id="@+id/settingsSurnameText"
@@ -112,7 +115,8 @@
             app:layout_constraintBottom_toBottomOf="@+id/userSurnameEditText"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/userSurnameEditText"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="1.0"
+            tools:ignore="RtlCompat" />
 
         <TextView
             android:id="@+id/settingsEmailText"
@@ -126,7 +130,8 @@
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@+id/settingsUserEmailText"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/settingsUserEmailText" />
+            app:layout_constraintTop_toTopOf="@+id/settingsUserEmailText"
+            tools:ignore="RtlCompat" />
 
         <TextView
             android:id="@+id/settingsUserEmailText"

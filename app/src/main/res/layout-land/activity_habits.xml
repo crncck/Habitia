@@ -7,22 +7,31 @@
     android:background="@drawable/background_style"
     tools:context=".HabitsActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/toolbar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <GridView
         android:id="@+id/gridview"
-        android:layout_width="match_parent"
-        android:layout_height="220dp"
-        android:layout_marginVertical="10dp"
+        android:layout_width="624dp"
+        android:layout_height="197dp"
         android:layout_marginHorizontal="30dp"
+        android:layout_marginVertical="10dp"
         android:layout_marginBottom="16dp"
         android:columnWidth="100dp"
 
         android:gravity="center"
 
+        android:horizontalSpacing="30dp"
         android:numColumns="auto_fit"
         android:stretchMode="spacingWidth"
         android:verticalSpacing="24dp"
-        android:horizontalSpacing="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -33,7 +42,7 @@
         android:layout_width="178dp"
         android:layout_height="49dp"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="80dp"
         android:layout_marginBottom="5dp"
         android:text="@string/habits"
         android:textAlignment="center"
@@ -41,22 +50,23 @@
         android:textSize="36sp"
         app:layout_constraintBottom_toTopOf="@+id/gridview"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.08"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.284" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.github.siyamed.shapeimageview.CircularImageView
         android:id="@+id/profileImage"
         android:layout_width="62dp"
         android:layout_height="62dp"
-        android:layout_marginStart="30dp"
-        app:siBorderWidth="2dp"
-        app:siBorderColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/habitsText"
-        app:layout_constraintEnd_toStartOf="@+id/habitsText"
+        android:layout_marginStart="400dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintBottom_toTopOf="@+id/habitsText"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/habitsText"
+        app:layout_constraintTop_toTopOf="parent"
+        app:siBorderColor="@color/white"
+        app:siBorderWidth="2dp"
         app:strokeColor="@color/background_color"
-        app:strokeWidth="2dp"/>
+        app:strokeWidth="2dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
