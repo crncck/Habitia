@@ -9,9 +9,8 @@
     android:foregroundGravity="center"
     tools:context=".DetailsActivity">
 
-
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar3"
+        android:id="@+id/toolbar2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/toolbar"
@@ -24,23 +23,23 @@
         android:id="@+id/habitName"
         android:layout_width="193dp"
         android:layout_height="50dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="350dp"
+        android:layout_marginTop="90dp"
+        android:layout_marginEnd="190dp"
         android:gravity="center"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar3"
         app:layout_constraintBottom_toTopOf="@+id/scrollView3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/toolbar2" />
 
     <ImageView
         android:id="@+id/deleteHabit"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginStart="620dp"
+        android:layout_marginStart="350dp"
+        android:layout_marginBottom="40dp"
         android:src="@drawable/trash_style"
         app:layout_constraintBottom_toTopOf="@+id/habitName"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,12 +48,12 @@
 
     <ScrollView
         android:id="@+id/scrollView3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layoutDirection="inherit"
+        android:layout_width="411dp"
+        android:layout_height="465dp"
+        android:layout_marginTop="170dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar3">
+        app:layout_constraintTop_toTopOf="@+id/toolbar2">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -71,19 +70,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-
-                <ImageView
-                    android:id="@+id/habitImage"
-                    android:layout_width="141dp"
-                    android:layout_height="139dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="-40dp"
-                    android:background="@drawable/spinner_box_style"
-                    android:gravity="center"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/habitName"
-                    tools:srcCompat="@tools:sample/avatars" />
 
                 <LinearLayout
                     android:layout_width="260dp"
@@ -116,7 +102,7 @@
                             android:maxLines="1"
                             android:textAlignment="center"
                             android:textColor="@color/white"
-                            android:textColorHint="@color/white"
+                            android:textColorHint="#E91E63"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@+id/targetText"
                             app:layout_constraintHorizontal_bias="0.991"
@@ -151,6 +137,7 @@
                         android:layout_width="247dp"
                         android:layout_height="53dp"
                         android:layout_marginLeft="8dp"
+                        android:layout_marginTop="20dp"
                         android:backgroundTintMode="multiply"
                         android:gravity="center"
                         android:textAlignment="center"
@@ -163,46 +150,61 @@
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/linearLayout6"
-                    android:layout_width="match_parent"
-                    android:layout_height="273dp"
+                <ImageView
+                    android:id="@+id/habitImage"
+                    android:layout_width="141dp"
+                    android:layout_height="139dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/spinner_box_style"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/habitName"
+                    tools:srcCompat="@tools:sample/avatars" />
 
-                    <TextView
-                        android:id="@+id/calendarText"
-                        android:layout_width="match_parent"
-                        android:layout_height="52dp"
-                        android:layout_marginTop="30dp"
-                        android:gravity="center"
-                        android:text="Calendar"
-                        android:textAlignment="center"
-                        android:textColor="@color/background_color"
-                        android:textSize="18sp"
-                        tools:layout_editor_absoluteX="16dp"
-                        tools:layout_editor_absoluteY="108dp" />
 
-                    <com.applandeo.materialcalendarview.CalendarView
-                        android:id="@+id/calendarView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        app:abbreviationsBarColor="#33386E"
-                        app:abbreviationsLabelsColor="@color/white"
-                        app:daysLabelsColor="@color/black"
-                        app:eventsEnabled="true"
-                        app:headerColor="@color/background_color"
-                        app:headerLabelColor="@color/white"
-                        app:pagesColor="#EDEEF1"
-                        app:selectionColor="@color/background_color"
-                        app:selectionLabelColor="@color/pink"
-                        app:todayLabelColor="@color/pink">
+            </LinearLayout>
 
-                    </com.applandeo.materialcalendarview.CalendarView>
 
-                </LinearLayout>
+            <LinearLayout
+                android:id="@+id/linearLayout6"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
 
+                <TextView
+                    android:id="@+id/calendarText"
+                    android:layout_width="448dp"
+                    android:layout_height="72dp"
+                    android:gravity="center"
+                    android:text="Calendar"
+                    android:textAlignment="center"
+                    android:textColor="@color/background_color"
+                    android:textSize="18sp"
+                    tools:layout_editor_absoluteX="16dp"
+                    tools:layout_editor_absoluteY="108dp" />
+
+                <com.applandeo.materialcalendarview.CalendarView
+                    android:id="@+id/calendarView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    app:abbreviationsBarColor="#33386E"
+                    app:abbreviationsLabelsColor="@color/white"
+                    app:daysLabelsColor="@color/black"
+                    app:eventsEnabled="true"
+                    app:headerColor="@color/background_color"
+                    app:headerLabelColor="@color/white"
+                    app:pagesColor="#EDEEF1"
+                    app:selectionColor="@color/background_color"
+                    app:selectionLabelColor="@color/pink"
+                    app:todayLabelColor="@color/pink">
+
+                </com.applandeo.materialcalendarview.CalendarView>
 
             </LinearLayout>
 
@@ -215,10 +217,7 @@
     <nl.dionsegijn.konfetti.KonfettiView
         android:id="@+id/konfettiView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
