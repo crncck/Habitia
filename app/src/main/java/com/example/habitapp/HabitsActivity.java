@@ -210,7 +210,7 @@ public class HabitsActivity extends AppCompatActivity {
                         for (DocumentSnapshot snapshot : value.getDocuments()) {
                             DocumentReference documentReference = collectionReference.document(snapshot.getId());
                             documentReference.update("done", "false");
-                            documentReference.update("value", "null");
+                            documentReference.update("value", "0");
                             documentReference.update("done_percent", "0");
 
                         }
