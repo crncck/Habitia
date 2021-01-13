@@ -121,13 +121,15 @@ public class HabitsActivity extends AppCompatActivity {
             Intent intentToHabit = new Intent(HabitsActivity.this, AddHabitActivity.class);
             startActivity(intentToHabit);
 
+        } else if(item.getItemId() == R.id.global_ranking) {
+
+
         } else if (item.getItemId() == R.id.sign_out) {
 
             firebaseAuth.signOut();
 
             Intent intentToLogin = new Intent(HabitsActivity.this, LoginActivity.class);
             startActivity(intentToLogin);
-
 
         }else if (item.getItemId() == R.id.settings){
             Intent intentToSettings = new Intent(HabitsActivity.this,SettingsActivity.class);
@@ -210,7 +212,7 @@ public class HabitsActivity extends AppCompatActivity {
                         for (DocumentSnapshot snapshot : value.getDocuments()) {
                             DocumentReference documentReference = collectionReference.document(snapshot.getId());
                             documentReference.update("done", "false");
-                            documentReference.update("value", "null");
+                            documentReference.update("value", "0");
                             documentReference.update("done_percent", "0");
 
                         }

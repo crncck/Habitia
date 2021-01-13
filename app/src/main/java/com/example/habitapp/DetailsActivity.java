@@ -102,11 +102,8 @@ public class DetailsActivity extends AppCompatActivity {
         done_percent = habit.getDone_percent();
         habitTarget.setText("/" + target + " " + habit.getType());
 
-        if (value.equals("null")) {
-            habitValue.setHint("Value");
-        } else {
-            habitValue.setText(value);
-        }
+        habitValue.setText(value);
+
 
         activeUser = FirebaseAuth.getInstance().getCurrentUser();
         currentHabit = firebaseFirestore.collection("users").document(activeUser.getUid()).collection("habits").document(habit.getId());
@@ -125,7 +122,6 @@ public class DetailsActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         currentHabit.delete();
                         Intent intent = new Intent(DetailsActivity.this, HabitsActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                     }
                 });

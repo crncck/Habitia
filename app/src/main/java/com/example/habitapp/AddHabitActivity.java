@@ -7,8 +7,11 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -40,7 +43,9 @@ public class AddHabitActivity extends AppCompatActivity {
     FotoGallery SelectedFoto;
     Boolean bool = false;
     String habitName, habitDescription, habitImage, habitTarget;
-    String habitDone = "false", habitValue, habitType = "count", habitDonePercent = "0";
+    String habitDone = "false", habitValue = "0", habitType = "count", habitDonePercent = "0";
+    LayoutInflater layoutInflater;
+    View layout;
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth fAuth;
     private String userID;
@@ -65,6 +70,9 @@ public class AddHabitActivity extends AppCompatActivity {
         firebaseFirestore = FirebaseFirestore.getInstance();
         fAuth = FirebaseAuth.getInstance();
         userID = fAuth.getCurrentUser().getUid();
+
+        layoutInflater = getLayoutInflater();
+        layout = layoutInflater.inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.custom_toast_container));
 
         Intent intent = getIntent();
         SelectedFoto = (FotoGallery) intent.getSerializableExtra("SelectedFoto");
@@ -123,7 +131,6 @@ public class AddHabitActivity extends AppCompatActivity {
         habitName = addName.getText().toString();
         habitDescription = addDescription.getText().toString();
         habitTarget = addTarget.getText().toString();
-        habitValue = "null";
 
         if (bool == false) {
             Toast.makeText(AddHabitActivity.this, "Please select an icon", Toast.LENGTH_LONG).show();
@@ -156,8 +163,13 @@ public class AddHabitActivity extends AppCompatActivity {
             documentReference2.set(habit).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
-                    Toast.makeText(AddHabitActivity.this, "Habit is created", Toast.LENGTH_LONG).show();
-                }
+                    TextView text = (TextView) layout.findViewById(R.id.text);
+                    text.setText("Habit is created");
+                    Toast toast = new Toast(getApplicationContext());
+                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 980);
+                    toast.setDuration(Toast.LENGTH_SHORT);
+                    toast.setView(layout);
+                    toast.show();                }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
