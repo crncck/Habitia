@@ -123,6 +123,9 @@ public class HabitsActivity extends AppCompatActivity {
 
         } else if(item.getItemId() == R.id.global_ranking) {
 
+            Intent intentToHabit = new Intent(HabitsActivity.this, RankingActivity.class);
+            startActivity(intentToHabit);
+            finish();
 
         } else if (item.getItemId() == R.id.sign_out) {
 

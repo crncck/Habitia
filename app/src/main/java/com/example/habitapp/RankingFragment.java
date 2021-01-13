@@ -67,7 +67,7 @@ public class RankingFragment extends Fragment {
     public void onAttach(@NonNull Context context) {
         if (context instanceof OnRankingListInteractionListener) {
             mListener = (OnRankingListInteractionListener) context;
-        } else {
+        } else {    
             throw new RuntimeException(context.toString()
                     + " must implement OnNoteListInteractionListener");
         }

@@ -37,7 +37,6 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    implementation 'androidx.wear:wear:1.0.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     testImplementation 'junit:junit:4.+'
@@ -54,6 +53,5 @@ dependencies {
     implementation 'nl.dionsegijn:konfetti:1.2.5'
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.4.30-M1'
     implementation 'com.applandeo:material-calendar-view:1.7.0'
-    compileOnly 'com.google.android.wearable:wearable:2.6.0'
 
 }
