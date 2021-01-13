@@ -12,10 +12,16 @@
     <string name="settings">PROFILE SETTINGS</string>
     <string name="name">Name</string>
     <string name="Surname">Surname</string>
-    <string name="privacy">By creating an account, you agree to the<br/>Terms and Use and Privacy Policy</string>
+    <string name="privacy">By creating an account, you agree to the<br />Terms and Use and Privacy Policy</string>
     <string name="sign_up1">Already have an account?</string>
     <string name="email">E-mail</string>
     <string name="target">target</string>
     <string name="save">Save</string>
+    <string name="title_activity_ranking">RankingActivity</string>
+    <!--
+    This string is used for square devices and overridden by hello_world in
+    values-round/strings.xml for round devices.
+    -->
+    <string name="hello_world">Hello Square World!</string>
 
 </resources>

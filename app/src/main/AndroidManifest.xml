@@ -2,9 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.habitapp">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/habitia_icon"
@@ -12,6 +9,19 @@
         android:roundIcon="@mipmap/habitia_icon_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HabitApp">
+        <activity
+            android:name=".RankingActivity"
+            android:label="@string/title_activity_ranking">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <!--
+               Set to true if your app is Standalone, that is, it does not require the handheld
+               app to run.
+        -->
         <activity
             android:name=".SignUpActivity"
             android:screenOrientation="fullSensor" />
@@ -29,16 +39,32 @@
             android:screenOrientation="fullSensor" />
         <activity
             android:name=".HabitsActivity"
-            android:screenOrientation="fullSensor" android:theme="@style/LauncherFullScreen"/>
+            android:screenOrientation="fullSensor"
+            android:theme="@style/LauncherFullScreen" />
         <activity
             android:name=".LoginActivity"
-            android:screenOrientation="fullSensor" android:theme="@style/LauncherFullScreen">
+            android:screenOrientation="fullSensor"
+            android:theme="@style/LauncherFullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="com.google.android.wearable.standalone"
+            android:value="true" />
+
+        <uses-library
+            android:name="com.google.android.wearable"
+            android:required="true" />
     </application>
+
+    <uses-feature android:name="android.hardware.type.watch" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
