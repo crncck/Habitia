@@ -13,9 +13,11 @@ tools:context=".HabitsActivity">
             <item
                 android:id="@+id/add_habit"
                 android:icon="@android:drawable/ic_menu_add"
-                android:title="New Habit"
-
-                />
+                android:title="New Habit" />
+            <item
+                android:id="@+id/global_ranking"
+                android:icon="@android:drawable/ic_menu_mapmode"
+                android:title="Global Ranking" />
             <item
                 android:id="@+id/settings"
                 android:title = "Settings"
