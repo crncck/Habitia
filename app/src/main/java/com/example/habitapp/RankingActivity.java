@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 
-public class RankingActivity extends AppCompatActivity {
+public class RankingActivity extends AppCompatActivity implements RankingFragment.OnUserSelected {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +17,10 @@ public class RankingActivity extends AppCompatActivity {
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.constraintLayout,rankingFragment).commit();
+        fragmentTransaction.add(R.id.layout_frame,rankingFragment).commit();
+    }
+
+    @Override
+    public void userSelected(User user) {
     }
 }

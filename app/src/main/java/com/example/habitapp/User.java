@@ -1,8 +1,10 @@
 package com.example.habitapp;
 
+import android.os.Parcelable;
+
 import java.io.Serializable;
 
-public class User implements Serializable {
+public class User implements Serializable  {
 
     private String name;
     private Integer proPicId;

@@ -13,23 +13,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.habitapp.dummy.DummyContent;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class RankingFragment extends Fragment {
 
-    private static final String ARG_USERS = "users";
-    private OnRankingListInteractionListener mListener;
-    private ArrayList<User> users;
-    MyRankingRecyclerViewAdapter mAdapter;
+    OnUserSelected listener;
+    List<User> users = new ArrayList<>();
+    private static final String ARG_COLUMN_COUNT = "column-count";
+    private int mColumnCount = 1;
 
 
     @SuppressWarnings("unused")
     public static RankingFragment newInstance(int columnCount) {
         RankingFragment fragment = new RankingFragment();
         Bundle args = new Bundle();
-        args.putInt(ARG_USERS, columnCount);
+        args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
         return fragment;
     }
@@ -39,8 +39,12 @@ public class RankingFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            users = (ArrayList<User>)getArguments().getSerializable(ARG_USERS);
+            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
+
+        users.add(new User("Jake",R.mipmap.permanent_job));
+        users.add(new User("Amy",R.mipmap.permanent_job));
+
     }
 
 
@@ -50,42 +54,36 @@ public class RankingFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_franking_list, container, false);
 
-        // Set the adapter
+
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
-
-            recyclerView.setLayoutManager(new LinearLayoutManager(context));
-
-            mAdapter = new MyRankingRecyclerViewAdapter(users, mListener);
-            recyclerView.setAdapter(mAdapter);
+            if (mColumnCount <= 1) {
+                recyclerView.setLayoutManager(new LinearLayoutManager(context));
+            } else {
+                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+            }
+            recyclerView.setAdapter(new MyRankingRecyclerViewAdapter(users, listener));
         }
         return view;
     }
 
     @Override
+    public void onDetach() {
+        super.onDetach();
+        listener = null;
+    }
+
+    @Override
     public void onAttach(@NonNull Context context) {
-        if (context instanceof OnRankingListInteractionListener) {
-            mListener = (OnRankingListInteractionListener) context;
-        } else {    
-            throw new RuntimeException(context.toString()
-                    + " must implement OnNoteListInteractionListener");
-        }
-
-
         super.onAttach(context);
+        if (context instanceof OnUserSelected) {
+            listener = (OnUserSelected) context;
+        }
     }
 
-    public void setDepartments(ArrayList<User> users) {
-        this.users.clear();
-        this.users.addAll(users);
-        mAdapter.notifyDataSetChanged();
-    }
-
-
-
-    public interface OnRankingListInteractionListener {
-        void onDepartmentSelected(User user);
+    public interface OnUserSelected {
+        void userSelected(User user);
     }
 
 }

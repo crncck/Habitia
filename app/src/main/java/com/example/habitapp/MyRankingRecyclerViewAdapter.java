@@ -14,11 +14,12 @@ import java.util.List;
 public class MyRankingRecyclerViewAdapter extends RecyclerView.Adapter<MyRankingRecyclerViewAdapter.ViewHolder> {
 
     private final List<User> mValues;
-    private final RankingFragment.OnRankingListInteractionListener mListener;
+    private RankingFragment.OnUserSelected listener;
+    int selectedIndex;
 
-    public MyRankingRecyclerViewAdapter(List<User> users, RankingFragment.OnRankingListInteractionListener mListener) {
-        this.mValues = users;
-        this.mListener = mListener;
+    public MyRankingRecyclerViewAdapter(List<User> items, RankingFragment.OnUserSelected mListener) {
+        mValues = items;
+        this.listener=listener;
     }
 
     @Override
@@ -33,14 +34,15 @@ public class MyRankingRecyclerViewAdapter extends RecyclerView.Adapter<MyRanking
         holder.mItem = mValues.get(position);
         holder.mNameView.setText(mValues.get(position).getName());
         holder.mPicView.setImageResource(mValues.get(position).getProPicId());
-
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (null != mListener) {
-                    mListener.onDepartmentSelected(holder.mItem);
+                if(listener != null){
+                    listener.userSelected(holder.mItem);
+                    notifyItemChanged(selectedIndex);
+                    selectedIndex = holder.getLayoutPosition();
+                    notifyItemChanged(selectedIndex);
                 }
-
             }
         });
     }
