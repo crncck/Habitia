@@ -56,7 +56,7 @@ public class RankingActivity extends AppCompatActivity implements RankingFragmen
             if (user.getProfileUrl() != null) {
                 Picasso.get().load(user.getProfileUrl()).into(firstImage);
             } else {
-                firstImage.setImageResource(R.mipmap.add_habit_icon_foreground);
+                firstImage.setImageResource(R.mipmap.user_icon);
             }
             if (users.size() == 2 || users.size() > 2 ) {
                 User user1 = users.get(1);
@@ -65,7 +65,7 @@ public class RankingActivity extends AppCompatActivity implements RankingFragmen
                 if (user1.getProfileUrl() != null) {
                     Picasso.get().load(user1.getProfileUrl()).into(secondImage);
                 } else {
-                    secondImage.setImageResource(R.mipmap.add_habit_icon_foreground);
+                    secondImage.setImageResource(R.mipmap.user_icon);
                 }
 
                 if (users.size() == 3 || users.size() > 3 ) {
@@ -75,7 +75,7 @@ public class RankingActivity extends AppCompatActivity implements RankingFragmen
                     if (user2.getProfileUrl() != null) {
                         Picasso.get().load(user2.getProfileUrl()).into(thirdImage);
                     } else {
-                        thirdImage.setImageResource(R.mipmap.add_habit_icon_foreground);
+                        thirdImage.setImageResource(R.mipmap.user_icon);
                     }
                     users.remove(2);
                 } else {

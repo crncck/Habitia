@@ -37,7 +37,7 @@ public class MyRankingRecyclerViewAdapter extends RecyclerView.Adapter<MyRanking
         holder.mItem = mValues.get(position);
         holder.mNameView.setText((position+4)+ ". "+mValues.get(position).getName()+" "+mValues.get(position).getSurname());
         if (mValues.get(position).getProfileUrl()==null) {
-            holder.mPicView.setImageResource(R.mipmap.add_habit_icon_foreground);
+            holder.mPicView.setImageResource(R.mipmap.user_icon);
         } else {
             holder.mPicView.setBackgroundResource(R.drawable.circle);
             Picasso.get().load(mValues.get(position).getProfileUrl()).into(holder.mPicView);
