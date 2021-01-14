@@ -1,12 +1,15 @@
 package com.example.habitapp;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -22,10 +25,21 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.Calendar;
 
 public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
+    private FirebaseUser firebaseUser;
+    private FirebaseFirestore firebaseFirestore;
     EditText emailText, passwordText;
     String email, password;
     Button signInButton;
@@ -36,12 +50,26 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         firebaseAuth = FirebaseAuth.getInstance();
+        firebaseFirestore = FirebaseFirestore.getInstance();
         emailText = findViewById(R.id.emailText);
         passwordText = findViewById(R.id.passwordText);
         signInButton = findViewById(R.id.signInButton);
-        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+        firebaseUser = firebaseAuth.getCurrentUser();
 
         if (firebaseUser != null) {
+
+            // To restart habit values next day
+            SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+            int lastTimeStarted = settings.getInt("last_time_started", -1);
+            Calendar calendar = Calendar.getInstance();
+            int today = calendar.get(Calendar.DAY_OF_YEAR);
+            if (today != lastTimeStarted) {
+                LoginActivity.HabitRunnable runnable = new LoginActivity.HabitRunnable();
+                new Thread(runnable).start();
+                SharedPreferences.Editor editor = settings.edit();
+                editor.putInt("last_time_started", today);
+                editor.commit();
+            }
 
             Intent intent = new Intent(LoginActivity.this, HabitsActivity.class);
             startActivity(intent);
@@ -100,5 +128,38 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    class HabitRunnable implements Runnable {
+
+        @Override
+        public void run() {
+            CollectionReference collectionReference = firebaseFirestore.collection("users").document(firebaseUser.getUid()).collection("habits");
+
+            collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+                @Override
+                public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                    if (error != null) {
+                        Toast.makeText(LoginActivity.this, error.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    }
+
+                    if (value != null) {
+                        for (DocumentSnapshot snapshot : value.getDocuments()) {
+                            DocumentReference documentReference = collectionReference.document(snapshot.getId());
+                            documentReference.update("done", "false");
+                            documentReference.update("value", "0");
+                            documentReference.update("done_percent", "0");
+
+                        }
+                    }
+                }
+            });
+
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

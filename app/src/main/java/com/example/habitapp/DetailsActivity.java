@@ -190,7 +190,7 @@ public class DetailsActivity extends AppCompatActivity {
                                  TextView text = (TextView) layout.findViewById(R.id.text);
                                  text.setText("Congratulations!");
                                  Toast toast = new Toast(getApplicationContext());
-                                 toast.setGravity(Gravity.CENTER_VERTICAL, 0, 400);
+                                 toast.setGravity(Gravity.CENTER_VERTICAL, 0, 280);
                                  toast.setDuration(Toast.LENGTH_LONG);
                                  toast.setView(layout);
                                  toast.show();
@@ -240,7 +240,7 @@ public class DetailsActivity extends AppCompatActivity {
                                  TextView text = (TextView) layout.findViewById(R.id.text);
                                  text.setText("You can still do this :)");
                                  Toast toast = new Toast(getApplicationContext());
-                                 toast.setGravity(Gravity.CENTER_VERTICAL, 0, 400);
+                                 toast.setGravity(Gravity.CENTER_VERTICAL, 0, 280);
                                  toast.setDuration(Toast.LENGTH_SHORT);
                                  toast.setView(layout);
                                  toast.show();

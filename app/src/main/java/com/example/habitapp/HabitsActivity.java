@@ -33,13 +33,17 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
 import org.xmlpull.v1.XmlPullParser;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -50,6 +54,7 @@ public class HabitsActivity extends AppCompatActivity {
     private String userID;
     static CircularImageView profileImage;
     final public List<Habit> habitsList = new ArrayList<>();
+    public ArrayList<User> users = new ArrayList<>();
     GridView gridview;
     TextView habitsText;
 
@@ -67,30 +72,34 @@ public class HabitsActivity extends AppCompatActivity {
         firebaseFirestore = FirebaseFirestore.getInstance();
         userID = firebaseAuth.getCurrentUser().getUid();
 
-        // To restart habit values next day
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
         int lastTimeStarted = settings.getInt("last_time_started", -1);
         Calendar calendar = Calendar.getInstance();
         int today = calendar.get(Calendar.DAY_OF_YEAR);
         if (today != lastTimeStarted) {
-            HabitRunnable runnable = new HabitRunnable();
-            new Thread(runnable).start();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    getDataFromFireStore();
+
+                }
+            }, 1300);
             SharedPreferences.Editor editor = settings.edit();
             editor.putInt("last_time_started", today);
             editor.commit();
+        } else {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    getDataFromFireStore();
+
+                }
+            }, 800);
         }
 
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                getDataFromFireStore();
 
-                HabitsAdapter adapter = new HabitsAdapter(HabitsActivity.this, habitsList);
-                gridview.setAdapter(adapter);
-            }
-        }, 1000);
-
+        getUsers();
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -101,6 +110,12 @@ public class HabitsActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
     }
 
     @Override
@@ -123,8 +138,9 @@ public class HabitsActivity extends AppCompatActivity {
 
         } else if(item.getItemId() == R.id.global_ranking) {
 
-            Intent intentToHabit = new Intent(HabitsActivity.this, RankingActivity.class);
-            startActivity(intentToHabit);
+            Intent intentToRanking = new Intent(HabitsActivity.this, RankingActivity.class);
+            intentToRanking.putExtra("user_list", (Serializable) users);
+            startActivity(intentToRanking);
             finish();
 
         } else if (item.getItemId() == R.id.sign_out) {
@@ -166,7 +182,10 @@ public class HabitsActivity extends AppCompatActivity {
 
         CollectionReference collectionReference = documentReference.collection("habits");
 
-        collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+        Query query = collectionReference.orderBy("name", Query.Direction.ASCENDING);
+
+
+        query.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -198,37 +217,53 @@ public class HabitsActivity extends AppCompatActivity {
         });
     }
 
-    class HabitRunnable implements Runnable {
+    public void getUsers(){
+        CollectionReference collectionReference = firebaseFirestore.collection("users");
 
-        @Override
-        public void run() {
-            CollectionReference collectionReference = firebaseFirestore.collection("users").document(userID).collection("habits");
+        collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (error != null) {
+                    Toast.makeText(HabitsActivity.this, error.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                }
 
-            collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
-                @Override
-                public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                    if (error != null) {
-                        Toast.makeText(HabitsActivity.this, error.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                    }
+                if (value != null) {
+                    for (DocumentSnapshot snapshot : value.getDocuments()) {
+                        String name = (String) snapshot.get("name");
+                        String surname = (String) snapshot.get("surname");
+                        String pictureUrl = (String) snapshot.get("profile_image");
+                        final int[] habit_percent = {0};
 
-                    if (value != null) {
-                        for (DocumentSnapshot snapshot : value.getDocuments()) {
-                            DocumentReference documentReference = collectionReference.document(snapshot.getId());
-                            documentReference.update("done", "false");
-                            documentReference.update("value", "0");
-                            documentReference.update("done_percent", "0");
+                        CollectionReference habitCollectionReference = collectionReference.document(snapshot.getId()).collection("habits");
+                        habitCollectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+                            @Override
+                            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                                if (error != null) {
+                                    Toast.makeText(HabitsActivity.this, error.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                                }
 
-                        }
+                                if (value != null) {
+                                    for (DocumentSnapshot snapshot : value.getDocuments()) {
+                                        String percent = (String) snapshot.get("done_percent");
+                                        habit_percent[0] = habit_percent[0] + Integer.parseInt(percent);
+                                    }
+                                    if (value.size() != 0){
+                                        int done_percent = habit_percent[0]/value.size();
+                                        users.add(new User(name, surname, pictureUrl, done_percent));
+                                    } else {
+                                        int done_percent = 0;
+                                        users.add(new User(name, surname, pictureUrl, done_percent));
+                                    }
+                                }
+                            }
+                        });
+
                     }
                 }
-            });
-
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
             }
-        }
+        });
+
     }
 
 }

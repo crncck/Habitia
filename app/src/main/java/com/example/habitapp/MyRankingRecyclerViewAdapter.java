@@ -6,7 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -32,8 +35,18 @@ public class MyRankingRecyclerViewAdapter extends RecyclerView.Adapter<MyRanking
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mNameView.setText(mValues.get(position).getName());
-        holder.mPicView.setImageResource(mValues.get(position).getProPicId());
+        holder.mNameView.setText((position+4)+ ". "+mValues.get(position).getName()+" "+mValues.get(position).getSurname());
+        if (mValues.get(position).getProfileUrl()==null) {
+            holder.mPicView.setImageResource(R.mipmap.add_habit_icon_foreground);
+        } else {
+            holder.mPicView.setBackgroundResource(R.drawable.circle);
+            Picasso.get().load(mValues.get(position).getProfileUrl()).into(holder.mPicView);
+        }
+        if (mValues.get(position).getDone_percent() == 0) {
+            holder.mProgressBar.setProgress(0);
+        } else {
+            holder.mProgressBar.setProgress(mValues.get(position).getDone_percent());
+        }
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,6 +69,7 @@ public class MyRankingRecyclerViewAdapter extends RecyclerView.Adapter<MyRanking
         public final View mView;
         public final TextView mNameView;
         public final ImageView mPicView;
+        public final ProgressBar mProgressBar;
 
         public User mItem;
 
@@ -64,6 +78,7 @@ public class MyRankingRecyclerViewAdapter extends RecyclerView.Adapter<MyRanking
             mView = view;
             mNameView = (TextView) view.findViewById(R.id.name);
             mPicView = (ImageView)view.findViewById(R.id.pic);
+            mProgressBar = (ProgressBar) view.findViewById(R.id.progress_bar);
 
         }
 

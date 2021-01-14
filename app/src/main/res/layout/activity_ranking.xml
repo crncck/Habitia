@@ -5,22 +5,160 @@
     android:id="@+id/layout_frame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_style"
     android:orientation="vertical"
     tools:context=".RankingActivity">
 
-
-    <FrameLayout
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/toolbar_ranking"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.844" />
+        app:layout_constraintVertical_bias="0.0" />
 
+    <TextView
+        android:id="@+id/globalRankingText"
+        android:layout_width="241dp"
+        android:layout_height="72dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="35dp"
+        android:gravity="center"
+        android:text="@string/ranking"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="@style/CircularProgressBarFirst"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/firstPositionText" />
 
+    <com.github.siyamed.shapeimageview.CircularImageView
+        android:id="@+id/imageView"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        app:layout_constraintBottom_toBottomOf="@+id/progress_bar"
+        app:layout_constraintEnd_toEndOf="@+id/progress_bar"
+        app:layout_constraintStart_toStartOf="@+id/progress_bar"
+        app:layout_constraintTop_toTopOf="@+id/progress_bar"
+        app:srcCompat="@drawable/circle" />
 
+    <TextView
+        android:id="@+id/firstPositionText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="1"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/progress_bar"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="@+id/progress_bar"
+        app:layout_constraintTop_toBottomOf="@+id/globalRankingText" />
+
+    <TextView
+        android:id="@+id/firstNameText"
+        android:layout_width="131dp"
+        android:layout_height="29dp"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/progress_bar"
+        app:layout_constraintStart_toStartOf="@+id/progress_bar"
+        app:layout_constraintTop_toBottomOf="@+id/progress_bar" />
+
+    <com.github.siyamed.shapeimageview.CircularImageView
+        android:id="@+id/imageView2"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:layout_constraintBottom_toBottomOf="@+id/progress_bar2"
+        app:layout_constraintEnd_toEndOf="@+id/progress_bar2"
+        app:layout_constraintStart_toStartOf="@+id/progress_bar2"
+        app:layout_constraintTop_toTopOf="@+id/progress_bar2"
+        app:srcCompat="@drawable/circle" />
+
+    <TextView
+        android:id="@+id/secondNameText"
+        android:layout_width="131dp"
+        android:layout_height="29dp"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/progress_bar2"
+        app:layout_constraintStart_toStartOf="@+id/progress_bar2"
+        app:layout_constraintTop_toBottomOf="@+id/progress_bar2" />
+
+    <TextView
+        android:id="@+id/secondPositionText"
+        android:layout_width="wrap_content"
+        android:layout_height="19dp"
+        android:layout_marginTop="60dp"
+        android:text="2"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/progress_bar2"
+        app:layout_constraintStart_toStartOf="@+id/progress_bar2"
+        app:layout_constraintTop_toBottomOf="@+id/firstPositionText" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar2"
+        style="@style/CircularProgressBarSecond"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        app:layout_constraintEnd_toStartOf="@+id/progress_bar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/secondPositionText" />
+
+    <TextView
+        android:id="@+id/thirdPositionText"
+        android:layout_width="wrap_content"
+        android:layout_height="19dp"
+        android:layout_marginTop="60dp"
+        android:text="3"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/progress_bar3"
+        app:layout_constraintStart_toStartOf="@+id/progress_bar3"
+        app:layout_constraintTop_toBottomOf="@+id/firstPositionText" />
+
+    <TextView
+        android:id="@+id/thirdNameText"
+        android:layout_width="131dp"
+        android:layout_height="29dp"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/progress_bar3"
+        app:layout_constraintStart_toStartOf="@+id/progress_bar3"
+        app:layout_constraintTop_toBottomOf="@+id/progress_bar3" />
+
+    <com.github.siyamed.shapeimageview.CircularImageView
+        android:id="@+id/imageView3"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:layout_constraintBottom_toBottomOf="@+id/progress_bar3"
+        app:layout_constraintEnd_toEndOf="@+id/progress_bar3"
+        app:layout_constraintStart_toStartOf="@+id/progress_bar3"
+        app:layout_constraintTop_toTopOf="@+id/progress_bar3"
+        app:srcCompat="@drawable/circle" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar3"
+        style="@style/CircularProgressBarThird"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/progress_bar"
+        app:layout_constraintTop_toBottomOf="@+id/thirdPositionText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

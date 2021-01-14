@@ -176,23 +176,13 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/calendarText"
-                    android:layout_width="448dp"
-                    android:layout_height="72dp"
-                    android:gravity="center"
-                    android:text="Calendar"
-                    android:textAlignment="center"
-                    android:textColor="@color/background_color"
-                    android:textSize="18sp"
-                    tools:layout_editor_absoluteX="16dp"
-                    tools:layout_editor_absoluteY="108dp" />
-
                 <com.applandeo.materialcalendarview.CalendarView
                     android:id="@+id/calendarView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginRight="20dp"
                     app:abbreviationsBarColor="#33386E"
                     app:abbreviationsLabelsColor="@color/white"
                     app:daysLabelsColor="@color/black"

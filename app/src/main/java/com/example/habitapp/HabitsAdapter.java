@@ -49,7 +49,11 @@ public class HabitsAdapter extends BaseAdapter {
 
         textView.setText(habit.getName());
         imageView.setImageResource(Integer.parseInt(habit.getPicId()));
-        progressBar.setProgress(Integer.parseInt(habit.getDone_percent()));
+        if (Integer.parseInt(habit.getDone_percent()) == 0) {
+            progressBar.setProgress(0);
+        } else {
+            progressBar.setProgress(Integer.parseInt(habit.getDone_percent()));
+        }
 
         return rowView;
     }

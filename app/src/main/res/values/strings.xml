@@ -17,6 +17,7 @@
     <string name="email">E-mail</string>
     <string name="target">target</string>
     <string name="save">Save</string>
-    <string name="title_activity_ranking">RankingActivity</string>
+    <string name="ranking">Global Ranking</string>
+
 
 </resources>
