@@ -1,5 +1,7 @@
 package com.example.habitapp;
 
+//Connects habitslist with gridview -gizem-
+
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;

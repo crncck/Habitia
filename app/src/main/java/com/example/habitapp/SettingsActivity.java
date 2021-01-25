@@ -145,7 +145,7 @@ public class SettingsActivity extends AppCompatActivity {
         }
     }
 
-
+    //Takes the user to the gallery. -gizem-
     public void addProfileImage(View view){
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(this,new String[] {Manifest.permission.READ_EXTERNAL_STORAGE},1);
@@ -156,7 +156,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     }
 
-
+    //Checks whether permission has been obtained before to go to the gallery. -gizem-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
@@ -170,7 +170,7 @@ public class SettingsActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
-
+    //Places the photo taken from the gallery into the activity.-gizem-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 

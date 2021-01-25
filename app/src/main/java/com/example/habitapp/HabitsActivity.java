@@ -101,6 +101,7 @@ public class HabitsActivity extends AppCompatActivity {
 
         getUsers();
 
+        //When clicked on the habit, it switches to the DetailsActivity and transfers all the information of the habit there. -gizem-
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -209,6 +210,7 @@ public class HabitsActivity extends AppCompatActivity {
 
                         habitsList.add(new Habit(habitId, name, image_id, description, done, target, habit_value, type, done_percent));
 
+                        //gridview connects with habitslist -gizem-
                         HabitsAdapter adapter = new HabitsAdapter(HabitsActivity.this, habitsList);
                         gridview.setAdapter(adapter);
                     }

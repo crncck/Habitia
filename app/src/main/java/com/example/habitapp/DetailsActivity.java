@@ -91,6 +91,7 @@ public class DetailsActivity extends AppCompatActivity {
         final KonfettiView konfettiView = findViewById(R.id.konfettiView);
         firebaseFirestore = FirebaseFirestore.getInstance();
 
+        //It pulls and displays the habit information entered in AddHabitActivity.-gizem-
         Intent intent = getIntent();
         this.habit = (Habit) intent.getSerializableExtra("SelectedHabit");
 

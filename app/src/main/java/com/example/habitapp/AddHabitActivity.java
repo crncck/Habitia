@@ -74,6 +74,7 @@ public class AddHabitActivity extends AppCompatActivity {
         layoutInflater = getLayoutInflater();
         layout = layoutInflater.inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.custom_toast_container));
 
+        //pulls the habit icon chosen by the user and checks if the user has selected icon with bool.-gizem-
         Intent intent = getIntent();
         SelectedFoto = (FotoGallery) intent.getSerializableExtra("SelectedFoto");
         bool = intent.getBooleanExtra("bool", false);

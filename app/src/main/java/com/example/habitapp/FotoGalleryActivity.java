@@ -15,6 +15,8 @@ import java.util.List;
 
 public class FotoGalleryActivity extends AppCompatActivity {
 
+    //Arrylist created to put icons in gridview -gizem-
+
     final public  List<FotoGallery> fotogallerylist = new ArrayList<>();
     TextView galleryText;
     GridView gridView;
@@ -27,6 +29,8 @@ public class FotoGalleryActivity extends AppCompatActivity {
 
         galleryText = findViewById(R.id.galleryText);
         gridView = findViewById(R.id.gridview);
+
+        //icons are added to created Arraylist -gizem-
 
         fotogallerylist.add(new FotoGallery(R.mipmap.yoga_foreground));
         fotogallerylist.add(new FotoGallery(R.mipmap.weightlifting_foreground));
@@ -64,6 +68,8 @@ public class FotoGalleryActivity extends AppCompatActivity {
 
         FotoGalleryAdapter adapter = new FotoGalleryAdapter(FotoGalleryActivity.this,fotogallerylist);
         gridView.setAdapter(adapter);
+
+        //clicking on the icon returns to AddActivity and transfers the selected icon. -gizem-
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

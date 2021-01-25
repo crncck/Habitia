@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
+//links gridview with photogallerylist -gizem-
+
 public class FotoGalleryAdapter extends BaseAdapter {
 
     private LayoutInflater mInflater;
