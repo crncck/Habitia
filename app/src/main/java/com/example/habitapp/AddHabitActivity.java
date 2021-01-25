@@ -127,6 +127,7 @@ public class AddHabitActivity extends AppCompatActivity {
 
 
     @SuppressLint("ResourceAsColor")
+    // Save new habit to Firebase (Ceren)
     public void addHabit(View view){
 
         habitName = addName.getText().toString();

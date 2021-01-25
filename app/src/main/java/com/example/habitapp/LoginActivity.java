@@ -58,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
 
         if (firebaseUser != null) {
 
-            // To restart habit values next day
+            // To restart habit values next day (Ceren)
             SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
             int lastTimeStarted = settings.getInt("last_time_started", -1);
             Calendar calendar = Calendar.getInstance();
@@ -76,6 +76,7 @@ public class LoginActivity extends AppCompatActivity {
             finish();
         }
 
+        // Track edit text (Ceren)
         passwordText.setOnEditorActionListener(new EditText.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -94,6 +95,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    // Get users information and try to sign (Ceren)
     public void signInClicked (View view) {
 
         email = emailText.getText().toString();

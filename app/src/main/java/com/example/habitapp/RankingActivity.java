@@ -49,6 +49,7 @@ public class RankingActivity extends AppCompatActivity implements RankingFragmen
         users = (ArrayList<User>) getIntent().getSerializableExtra("user_list");
         Collections.sort(users, Collections.reverseOrder());
 
+        // To show up first three users on the ranking (Ceren)
         if (!users.isEmpty()) {
             User user = users.get(0);
             progressBar1.setProgress(user.getDone_percent());
@@ -99,6 +100,7 @@ public class RankingActivity extends AppCompatActivity implements RankingFragmen
             third.setVisibility(TextView.INVISIBLE);
         }
 
+        // Show other users on fragment (Ceren)
         Bundle bundle = new Bundle();
         bundle.putSerializable("sorted_list", users);
         RankingFragment rankingFragment = new RankingFragment();

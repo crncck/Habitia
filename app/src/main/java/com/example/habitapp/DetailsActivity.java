@@ -111,6 +111,7 @@ public class DetailsActivity extends AppCompatActivity {
         CollectionReference collectionReference = currentHabit.collection("dates");
         DocumentReference documentReference = collectionReference.document();
 
+        // Delete habit if user clicks on the the trash icon (Ceren)
         deleteHabit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -139,6 +140,7 @@ public class DetailsActivity extends AppCompatActivity {
             }
         });
 
+        // Get the date information of the habit and show it on the calendar (Ceren)
         collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -165,6 +167,7 @@ public class DetailsActivity extends AppCompatActivity {
             }
         });
 
+        // Listener to track user while editing on edit text (Ceren)
         habitValue.setOnEditorActionListener(new EditText.OnEditorActionListener() {
              @SuppressLint("ResourceAsColor")
              @Override
@@ -180,12 +183,14 @@ public class DetailsActivity extends AppCompatActivity {
                              habitValue.setBackgroundResource(R.drawable.error_style);
                              habitValue.setTextColor(R.color.black);
                          } else {
+                             // Get the value user entered and calculate how much of the habit is done
                              int enteredValue = Integer.parseInt(habitValue.getText().toString());
                              float tar = Integer.parseInt(target);
                              float percent = (enteredValue / tar) * 100;
                              done_percent = String.valueOf((int) percent);
                              currentHabit.update("done_percent", done_percent);
 
+                             // If the percentage is equal to 100 or greater than it, show confetti animation, save date of the day to Firebase, and turn user to habit activity
                              if (Integer.parseInt(done_percent) == 100 || Integer.parseInt(done_percent) > 100) {
                                  currentHabit.update("done", "true");
                                  TextView text = (TextView) layout.findViewById(R.id.text);
@@ -237,6 +242,7 @@ public class DetailsActivity extends AppCompatActivity {
                                  }, 3000);
 
                              } else {
+                                 // The user entered a value less than target
                                  currentHabit.update("done", "false");
                                  TextView text = (TextView) layout.findViewById(R.id.text);
                                  text.setText("You can still do this :)");

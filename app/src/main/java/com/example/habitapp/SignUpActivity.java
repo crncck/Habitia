@@ -83,6 +83,7 @@ public class SignUpActivity extends AppCompatActivity {
         finish();
     }
 
+    // Sign up new user (Ceren)
     public void signUpClicked (View view) {
 
         String name = nameEditText.getText().toString();

@@ -194,6 +194,7 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
 
+    // Get user's data from Firebase. If user make changes in data, saves them to Firebase (Ceren)
     public void doneButton (View view) {
 
         DocumentReference documentReference = firebaseFirestore.collection("users").document(userID);

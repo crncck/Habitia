@@ -72,6 +72,7 @@ public class HabitsActivity extends AppCompatActivity {
         firebaseFirestore = FirebaseFirestore.getInstance();
         userID = firebaseAuth.getCurrentUser().getUid();
 
+        // Get last time user logged in and restart habit values in new day (Ceren)
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
         int lastTimeStarted = settings.getInt("last_time_started", -1);
         Calendar calendar = Calendar.getInstance();
@@ -161,6 +162,7 @@ public class HabitsActivity extends AppCompatActivity {
     }
 
 
+    // Get data of the user's profile picture. Get user's habits and create new habit object for each of them. Store them in an arraylist (Ceren)
     public void getDataFromFireStore() {
 
         DocumentReference documentReference = firebaseFirestore.collection("users").document(userID);
@@ -219,6 +221,7 @@ public class HabitsActivity extends AppCompatActivity {
         });
     }
 
+    // Get every user's profile information from Firebase to show up on RankingActivity. Create user object for each of them and hold in an arraylist (Ceren)
     public void getUsers(){
         CollectionReference collectionReference = firebaseFirestore.collection("users");
 
